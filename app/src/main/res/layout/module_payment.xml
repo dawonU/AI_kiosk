@@ -1,165 +1,233 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- 뒷배경을 VideoView로 설정 -->
+    <!-- 배경 동영상 -->
     <VideoView
-        android:id="@+id/videoView3"
+        android:id="@+id/videoViewPayment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- 반투명 오버레이 -->
+    <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop" />
+        android:background="#80000000" /> <!-- 검은색 50% 투명도 -->
 
-    <!-- 전체 콘텐츠를 화면 하단에 배치 -->
-    <ScrollView
+    <!-- 50% 위치에 가이드라인 추가 -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline50"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.38" />
+
+    <!-- 전체 레이아웃 -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="bottom"
+        android:layout_marginTop="0dp"
+        app:layout_constraintTop_toBottomOf="@id/guideline50">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:background="@color/white"
-            android:gravity="bottom">
+            android:fillViewport="true">
 
-            <!-- 상단 주문내역 및 뒤로가기 버튼 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-
-                <!-- 뒤로 가기 버튼 -->
-                <ImageButton
-                    android:id="@+id/imgBtn_arrow3"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@null"
-                    app:srcCompat="@android:drawable/ic_media_previous" />
-
-                <!-- 주문내역 확인 및 결제 -->
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingVertical="8dp"
-                    android:text="주문내역 확인 및 결제"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:layout_marginStart="8dp"/>
-            </LinearLayout>
-
-            <!-- 주문 리스트 -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@drawable/rounded_bg">
+                android:padding="16dp"
+                android:gravity="center_horizontal"
+                android:background="@drawable/rounded_bg"> <!-- 둥근 테두리 추가 -->
 
-                <!-- 예제: 단품 메뉴 1 -->
+                <!-- 상단 네비게이션 -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="8dp">
+                    android:gravity="center_vertical">
+
+                    <!-- 뒤로가기 버튼 -->
+                    <ImageButton
+                        android:id="@+id/imgBtn_arrow3"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@android:color/transparent"
+                        android:padding="8dp"
+                        android:contentDescription="@null"
+                        app:srcCompat="@android:drawable/ic_media_previous" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1"
-                        android:textSize="16sp"/>
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="8dp"
-                        android:src="@drawable/icon_burger" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="단품 메뉴 1"
-                        android:textSize="16sp"
+                        android:text="주문내역 확인 및 결제"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
                         android:layout_marginStart="8dp"/>
+                </LinearLayout>
+
+                <!-- 주문내역 + 전체금액 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/rounded_bg"
+                    android:padding="16dp"
+                    android:elevation="4dp"
+                    android:layout_marginTop="16dp">
+
+                    <!-- 주문 아이템 예제 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:textSize="16sp"/>
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="8dp"
+                            android:src="@drawable/icon_burger" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="단품 메뉴 1"
+                            android:textSize="16sp"
+                            android:layout_marginStart="8dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="7,000원"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <!-- 추가 주문 항목 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2"
+                            android:textSize="16sp"/>
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="8dp"
+                            android:src="@drawable/icon_happysnack" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="사이드1"
+                            android:textSize="16sp"
+                            android:layout_marginStart="8dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="5,000원"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <!-- 전체 금액 -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="전체 금액"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="16dp"/>
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="15,000원"
-                        android:textSize="16sp" />
+                        android:layout_marginBottom="16dp"
+                        android:gravity="end"
+                        android:text="12,000 원"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- 결제 버튼 추가 -->
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="결제하기"
+                    android:textColor="@color/white"
+                    android:background="@drawable/rounded_red_button"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- 결제수단 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/rounded_bg"
+                    android:padding="16dp"
+                    android:elevation="4dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="결제수단"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="16dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:layout_marginTop="8dp">
+
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:src="@drawable/btn_card" />
+
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_marginStart="16dp"
+                            android:src="@drawable/btn_payco" />
+
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_marginStart="16dp"
+                            android:src="@drawable/btn_cash" />
+
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_marginStart="16dp"
+                            android:src="@drawable/btn_gifticon" />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-
-            <!-- 전체 금액 -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="전체 금액"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="15,000 원"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:gravity="end"
-                android:layout_marginBottom="16dp"/>
-
-            <!-- 주문 계속하기 버튼 -->
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="주문 계속하기"
-                android:textColor="@color/white"
-                android:background="@drawable/rounded_red_button"/>
-
-            <!-- 결제수단 -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="결제수단"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginTop="24dp"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_marginTop="8dp">
-
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@drawable/img_card_payment"/>
-
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@drawable/img_payco"
-                    android:layout_marginStart="16dp"/>
-
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@drawable/img_cash"
-                    android:layout_marginStart="16dp"/>
-
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@drawable/img_gifticon"
-                    android:layout_marginStart="16dp"/>
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
-</FrameLayout>
+        </ScrollView>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

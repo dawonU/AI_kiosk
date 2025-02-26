@@ -1,4 +1,5 @@
-// 넘 어렵네유..
+// 버튼 기능 연결
+// 비디오 출력 확인
 
 package com.example.test
 
@@ -16,7 +17,7 @@ class OrderScreen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.module_payment)
 
-        videoView = findViewById(R.id.videoView)
+        videoView = findViewById(R.id.videoViewPayment)
         // 비디오 파일 경로
         val uri: Uri = Uri.parse("android.resource://" + packageName + "/" + R.raw.intro)
         videoView.setVideoURI(uri)
