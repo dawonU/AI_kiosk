@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.38" />
+        app:layout_constraintGuide_percent="0.54" />
 
     <!-- 전체 레이아웃 -->
     <LinearLayout
@@ -66,10 +66,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="주문내역 확인 및 결제"
+                        android:layout_marginStart="8dp"
+                        android:text="상품과 가격을 확인해요"
                         android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:layout_marginStart="8dp"/>
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <!-- 주문내역 + 전체금액 -->
@@ -154,10 +154,10 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="전체 금액"
+                        android:layout_marginTop="16dp"
+                        android:text="가격"
                         android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:layout_marginTop="16dp"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -169,65 +169,18 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
-                <!-- 결제 버튼 -->
+                <!-- 결제 버튼 추가 -->
                 <Button
                     android:id="@+id/btn_payment"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="결제하기"
-                    android:textColor="@color/white"
-                    android:background="@drawable/rounded_red_button"
+                    android:layout_height="72dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp" />
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/rounded_red_button"
+                    android:text="계산하기"
+                    android:textColor="@color/white" />
 
                 <!-- 결제수단 -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:background="@drawable/rounded_bg"
-                    android:padding="16dp"
-                    android:elevation="4dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="결제수단"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:layout_marginTop="16dp"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center"
-                        android:layout_marginTop="8dp">
-
-                        <ImageView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:src="@drawable/btn_card" />
-
-                        <ImageView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_marginStart="16dp"
-                            android:src="@drawable/btn_payco" />
-
-                        <ImageView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_marginStart="16dp"
-                            android:src="@drawable/btn_cash" />
-
-                        <ImageView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_marginStart="16dp"
-                            android:src="@drawable/btn_gifticon" />
-                    </LinearLayout>
-                </LinearLayout>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
