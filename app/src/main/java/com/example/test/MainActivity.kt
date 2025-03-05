@@ -9,7 +9,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val intent = Intent(this, Start::class.java) //Start.kt 실행
+        val intent = Intent(this, Intro::class.java) //intros.kt 실행
         startActivity(intent)
         finish() // MainActivity 종료
     }

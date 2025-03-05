@@ -3,10 +3,8 @@
 
 package com.example.test
 
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.widget.ImageButton
 import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
 import android.app.AlertDialog
@@ -18,7 +16,7 @@ class OrderScreen : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.module_payment)
+        setContentView(R.layout.menu_payment)
 
         videoView = findViewById(R.id.videoViewPayment)
         // 비디오 파일 경로
@@ -30,7 +28,7 @@ class OrderScreen : AppCompatActivity() {
         class MainActivity : AppCompatActivity() {
             override fun onCreate(savedInstanceState: Bundle?) {
                 super.onCreate(savedInstanceState)
-                setContentView(R.layout.module_payment)
+                setContentView(R.layout.menu_payment)
                 // 버튼 찾기
                 val btnPayment = findViewById<Button>(R.id.btn_payment)
 
