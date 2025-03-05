@@ -32,13 +32,13 @@
         android:textSize="25sp"
         android:textStyle="bold"
 
-        app:layout_constraintBottom_toTopOf="@+id/hLayout_site"
+        app:layout_constraintBottom_toTopOf="@+id/burger_choice"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/hLayout_site"
+        android:id="@+id/burger_choice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:layout_weight="1"
-            app:cardCornerRadius="20dp"
+            android:background="@drawable/btn_white_r_sq"
             android:focusable="true">
 
             <RelativeLayout
@@ -93,7 +93,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:layout_weight="1"
-            app:cardCornerRadius="20dp"
+            android:background="@drawable/btn_white_r_sq"
             android:focusable="true">
 
             <RelativeLayout
@@ -133,7 +133,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/hLayout_site"
+        app:layout_constraintTop_toBottomOf="@id/burger_choice"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp">
