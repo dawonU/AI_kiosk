@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <!-- side Menu -->
     <LinearLayout
@@ -28,10 +27,9 @@
                 android:id="@+id/home"
                 style="@style/CustomImageView"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:src="@drawable/icon_home"
-                android:contentDescription="@null" />
+                android:layout_height="4dp"
+                android:contentDescription="@null"
+                android:src="@drawable/icon_home" />
 
             <ImageView
                 android:id="@+id/specialty"
@@ -39,8 +37,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:src="@drawable/icon_specialty"
-                android:contentDescription="@null" />
+                android:contentDescription="@null"
+                android:src="@drawable/icon_specialty" />
 
             <ImageView
                 android:id="@+id/burger"
@@ -48,8 +46,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:src="@drawable/icon_burger"
-                android:contentDescription="@null" />
+                android:contentDescription="@null"
+                android:src="@drawable/icon_burger" />
 
             <ImageView
                 android:id="@+id/side"
@@ -57,8 +55,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:src="@drawable/icon_side"
-                android:contentDescription="@null" />
+                android:contentDescription="@null"
+                android:src="@drawable/icon_side" />
 
             <ImageView
                 android:id="@+id/coffee"
@@ -66,8 +64,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:src="@drawable/icon_coffee"
-                android:contentDescription="@null" />
+                android:contentDescription="@null"
+                android:src="@drawable/icon_coffee" />
 
             <ImageView
                 android:id="@+id/dessert"
@@ -75,8 +73,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:src="@drawable/icon_dessert"
-                android:contentDescription="@null" />
+                android:contentDescription="@null"
+                android:src="@drawable/icon_dessert" />
 
             <ImageView
                 android:id="@+id/beverage"
@@ -84,8 +82,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:src="@drawable/icon_beverage"
-                android:contentDescription="@null" />
+                android:contentDescription="@null"
+                android:src="@drawable/icon_beverage" />
         </LinearLayout>
 
         <!-- side Menu > 버튼 -->
@@ -99,46 +97,46 @@
             <Button
                 android:id="@+id/sideMenu_홈"
                 style="@style/CustomButton"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:text="@string/home" />
 
             <Button
                 android:id="@+id/sideMenu_추천메뉴"
                 style="@style/CustomButton"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:text="@string/speciality" />
 
             <Button
                 android:id="@+id/sideMenu_버거"
                 style="@style/CustomButton"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:text="@string/buger" />
 
             <Button
                 android:id="@+id/sideMenu_사이드"
                 style="@style/CustomButton"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:text="@string/side" />
 
             <Button
                 android:id="@+id/sideMenu_커피"
                 style="@style/CustomButton"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:text="@string/coffee" />
 
             <Button
                 android:id="@+id/sideMenu_디저트"
                 style="@style/CustomButton"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:text="@string/dessert" />
 
             <Button
                 android:id="@+id/sideMenu_음료"
                 style="@style/CustomButton"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:text="@string/beverage" />
 

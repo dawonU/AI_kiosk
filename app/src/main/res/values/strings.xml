@@ -1,4 +1,22 @@
 <resources>
+    <string name="here">매장</string>
+    <string name="takeaway">포장</string>
+
+    <string name="sitePick_kr"> 식사 장소를 선택하세요. </string>
+    <string name="sitePick_eng"> Please choose a place to eat. </string>
+    <string name="sitePick_ch"> 请选择就餐地点。</string>
+    <string name="sitePick_jp">どこで食べるか選んでください。</string>
+
+    <string name="for_here">For Here</string>
+    <string name="take_out">Take-out</string>
+    <string name="매장">매장</string>
+    <string name="포장">포장</string>
+    <string name="ここで食べる">ここで食べる</string>
+    <string name="持ち帰り">持ち帰り</string>
+    <string name="在这里吃">在这里吃</string>
+    <string name="外带">外带</string>
+
+
     <string name="app_name">test</string>
     <string name="maclunch">맥런치</string>
     <string name="divMenu">메뉴 알아보기</string>
