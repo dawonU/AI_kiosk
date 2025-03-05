@@ -5,5 +5,4 @@
     <corners android:radius="16dp"/>
     <solid android:color="@color/white"/>
     <padding android:left="8dp" android:top="8dp" android:right="8dp" android:bottom="8dp"/>
-    <elevation android:shadowColor="#33000000" android:elevation="4dp"/>
 </shape>
