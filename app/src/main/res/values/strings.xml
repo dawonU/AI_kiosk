@@ -1,4 +1,9 @@
 <resources>
+    <string name="app_name">Kiosk</string>
+    <string name="logo">logo</string>
+
+
+    <!--intro.xml-->
     <string name="here">매장</string>
     <string name="takeaway">포장</string>
 
@@ -16,18 +21,35 @@
     <string name="在这里吃">在这里吃</string>
     <string name="外带">外带</string>
 
-
-    <string name="app_name">test</string>
-    <string name="maclunch">맥런치</string>
+    <!--menu_package.xml-->
     <string name="divMenu">메뉴 알아보기</string>
+    <string name="maclunch">맥런치</string>
     <string name="happysnack">해피스낵</string>
     <string name="dessertcoffee">디저트, 음료</string>
     <string name="speciality">추천 메뉴</string>
-
+    <!--menu_side.xml-->
     <string name="home">홈</string>
     <string name="buger">버거</string>
     <string name="side">사이드</string>
     <string name="coffee">커피</string>
     <string name="dessert">디저트</string>
     <string name="beverage">음료</string>
+
+    <!--burger choice 1~3-->
+    <string name="cancle">취소</string>
+    <string name="back">이전단계</string>
+    <!--burger choice 1-->
+    <string name="choice_set">세트로 주문하시겠습니까?</string>
+    <string name="choose_set">세트선택</string>
+    <string name="choose_single">단품선택</string>
+    <!--burger choice 2-->
+    <string name="set">세트메뉴</string>
+    <string name="Rset">세트</string>
+    <string name="Lset">라지세트</string>
+    <!--burger choice 3-->
+    <string name="Lfries">후렌치후라이-라지 </string>
+    <string name="coleslaw">코울슬로 </string>
+
+
+
 </resources>
