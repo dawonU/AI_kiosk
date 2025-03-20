@@ -36,7 +36,6 @@
                 style="@style/CustomImageView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
                 android:contentDescription="@null"
                 android:src="@drawable/icon_specialty" />
 
@@ -45,7 +44,6 @@
                 style="@style/CustomImageView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
                 android:contentDescription="@null"
                 android:src="@drawable/icon_burger" />
 
@@ -54,7 +52,6 @@
                 style="@style/CustomImageView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
                 android:contentDescription="@null"
                 android:src="@drawable/icon_side" />
 
@@ -63,7 +60,6 @@
                 style="@style/CustomImageView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
                 android:contentDescription="@null"
                 android:src="@drawable/icon_coffee" />
 
@@ -72,7 +68,6 @@
                 style="@style/CustomImageView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
                 android:contentDescription="@null"
                 android:src="@drawable/icon_dessert" />
 
@@ -81,7 +76,6 @@
                 style="@style/CustomImageView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
                 android:contentDescription="@null"
                 android:src="@drawable/icon_beverage" />
         </LinearLayout>
@@ -98,47 +92,52 @@
                 android:id="@+id/sideMenu_홈"
                 style="@style/CustomButton"
                 android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:text="@string/home" />
+                android:text="@string/home"
+                android:textSize="20sp"/>
 
             <Button
                 android:id="@+id/sideMenu_추천메뉴"
                 style="@style/CustomButton"
                 android:layout_width="match_parent"
                 android:layout_weight="1"
-                android:text="@string/speciality" />
+                android:text="@string/speciality"
+                android:textSize="20sp"/>
 
             <Button
                 android:id="@+id/sideMenu_버거"
                 style="@style/CustomButton"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:text="@string/buger" />
+                android:text="@string/buger"
+                android:textSize="20sp"/>
 
             <Button
                 android:id="@+id/sideMenu_사이드"
                 style="@style/CustomButton"
                 android:layout_width="match_parent"
-                android:text="@string/side" />
+                android:text="@string/side"
+                android:textSize="20sp"/>
 
             <Button
                 android:id="@+id/sideMenu_커피"
                 style="@style/CustomButton"
                 android:layout_width="match_parent"
-                android:text="@string/coffee" />
+                android:text="@string/coffee"
+                android:textSize="20sp"/>
 
             <Button
                 android:id="@+id/sideMenu_디저트"
                 style="@style/CustomButton"
                 android:layout_width="match_parent"
-                android:text="@string/dessert" />
+                android:text="@string/dessert"
+                android:textSize="20sp"/>
 
             <Button
                 android:id="@+id/sideMenu_음료"
                 style="@style/CustomButton"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:text="@string/beverage" />
+                android:text="@string/beverage"
+                android:textSize="20sp"/>
 
         </LinearLayout>
     </LinearLayout>

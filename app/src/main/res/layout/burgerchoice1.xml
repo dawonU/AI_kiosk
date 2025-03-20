@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--burgerchoice1.xml-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -11,21 +13,57 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/bc1_logo"
+                app:srcCompat="@drawable/icon_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginStart="25dp"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="7dp"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/bh1_nameTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="210dp"
+            android:layout_marginTop="80dp"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/choice_set"
                 android:layout_marginStart="25dp"
+                android:text="@string/choice_set"
                 android:textSize="25sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"/>
         </LinearLayout>
-
 
         <LinearLayout
             android:id="@+id/burgerchoice"
@@ -112,18 +150,37 @@
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
-
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btn_burgerchoice"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/cancle"
-            android:background="@drawable/btn_white_r_sq"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
-            android:layout_marginTop="10dp"
-            android:textSize="20sp"/>
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="300dp">
+
+            <Button
+                android:id="@+id/btn_bc1_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_white_r_sq"
+                android:text="@string/back"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/btn_bc1_cancle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="25dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_white_r_sq"
+                android:text="@string/cancle"
+                android:textSize="20sp" />
+        </LinearLayout>
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

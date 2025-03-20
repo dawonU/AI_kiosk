@@ -7,7 +7,7 @@
         android:color="#E7E7E7"/>
     <shadow
         android:shadowColor="#80000000"
-        android:shadowDx="1dp"
-        android:shadowDy="1dp"
-        android:shadowRadius="4dp"/>
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="4"/>
 </shape>

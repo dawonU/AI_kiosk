@@ -26,14 +26,19 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".Intro"
+        <activity android:name=".Intro"
             android:exported="true" />
 
         <activity
             android:name=".MenuMain"
             android:exported="true" />
 
+        <activity
+            android:name=".BurgerChoice"
+            android:exported="true"/>
+        <activity
+            android:name=".BurgerChoice2"
+            android:exported="true"/>
 
     </application>
 
