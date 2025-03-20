@@ -1,3 +1,4 @@
+//MainActivity
 package com.example.test
 
 import android.content.Intent

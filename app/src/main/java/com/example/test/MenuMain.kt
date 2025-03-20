@@ -2,15 +2,31 @@ package com.example.test
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MenuMain : AppCompatActivity() {
 
     private lateinit var rightLayout: LinearLayout
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var tabBurgerAdapter: TabBurgerAdapter
+    private lateinit var tabBeverageAdapter: TabBeverageAdapter
+    private lateinit var tabCoffeeAdapter: TabCoffeeAdapter
+    private lateinit var tabSideAdapter: TabSideAdapter
+    private lateinit var tabDessertAdapter: TabDessertAdapter
+
+    // 메뉴 데이터 리스트
+    private lateinit var menuList: List<MenuResponse>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,10 +34,11 @@ class MenuMain : AppCompatActivity() {
 
         rightLayout = findViewById(R.id.rightLayout)
 
-        // 사이드 메뉴 버튼 클릭 리스너 설정
         setupSideMenuListeners()
-        // 카드 클릭 리스너 설정
         setupCardMenuListeners()
+
+        // 메뉴 데이터 로드
+        loadMenuData()
     }
 
     private fun setupSideMenuListeners() {
@@ -33,22 +50,18 @@ class MenuMain : AppCompatActivity() {
         val dessertButton: Button = findViewById(R.id.sideMenu_디저트)
         val beverageButton: Button = findViewById(R.id.sideMenu_음료)
 
-        // 홈 버튼 클릭 시 Intro 액티비티로 이동
         homeButton.setOnClickListener {
-            val intent = Intent(this, Intro::class.java) // Intro 액티비티로 이동
+            val intent = Intent(this, Intro::class.java)
             startActivity(intent)
         }
 
-        specialtyButton.setOnClickListener { loadFragment(R.layout.tab_specialty) }
-        burgerButton.setOnClickListener { loadFragment(R.layout.tab_burger) }
-        sideButton.setOnClickListener { loadFragment(R.layout.tab_side) }
-        coffeeButton.setOnClickListener { loadFragment(R.layout.tab_coffee) }
-        dessertButton.setOnClickListener { loadFragment(R.layout.tab_dessert) }
-        beverageButton.setOnClickListener { loadFragment(R.layout.tab_beverage) }
+        specialtyButton.setOnClickListener { loadFragment("specialty") }
+        burgerButton.setOnClickListener { loadFragment("burger") }
+        sideButton.setOnClickListener { loadFragment("side") }
+        coffeeButton.setOnClickListener { loadFragment("coffee") }
+        dessertButton.setOnClickListener { loadFragment("dessert") }
+        beverageButton.setOnClickListener { loadFragment("beverage") }
     }
-
-
-
 
     private fun setupCardMenuListeners() {
         val maclunchCard: CardView = findViewById(R.id.Card_maclunch)
@@ -56,16 +69,86 @@ class MenuMain : AppCompatActivity() {
         val dessertcoffeeCard: CardView = findViewById(R.id.Card_dessertcoffee)
         val specialtyCard: CardView = findViewById(R.id.Card_specialty)
 
-        maclunchCard.setOnClickListener { loadFragment(R.layout.tab_burger) }
-        happysnackCard.setOnClickListener { loadFragment(R.layout.tab_happysnack) }
-        dessertcoffeeCard.setOnClickListener { loadFragment(R.layout.tab_dessertcoffee) }
-        specialtyCard.setOnClickListener { loadFragment(R.layout.tab_specialty) }
+        maclunchCard.setOnClickListener { loadFragment("burger") }
+        happysnackCard.setOnClickListener { loadFragment("happysnack") }
+        dessertcoffeeCard.setOnClickListener { loadFragment("dessertcoffee") }
+        specialtyCard.setOnClickListener { loadFragment("specialty") }
     }
 
-    private fun loadFragment(layoutId: Int) {
+    private fun loadFragment(category: String) {
         rightLayout.removeAllViews()
         val inflater = LayoutInflater.from(this)
-        val newView = inflater.inflate(layoutId, rightLayout, false)
+        val newView = inflater.inflate(getLayoutIdByCategory(category), rightLayout, false)
         rightLayout.addView(newView)
+
+        if (category in listOf("burger", "beverage", "coffee", "dessert", "side")) {
+            setupRecyclerView(newView, category)
+        }
+    }
+
+    private fun getLayoutIdByCategory(category: String): Int {
+        return when (category) {
+            "burger" -> R.layout.tab_burger
+            "side" -> R.layout.tab_side
+            "dessert" -> R.layout.tab_dessert
+            "coffee" -> R.layout.tab_coffee
+            "beverage" -> R.layout.tab_beverage
+            "specialty" -> R.layout.tab_specialty
+            else -> R.layout.tab_specialty // 기본값
+        }
+    }
+
+    private fun setupRecyclerView(view: View, category: String) {
+        recyclerView = view.findViewById(R.id.recyclerView)
+        val gridLayoutManager = GridLayoutManager(this, 3)
+        recyclerView.layoutManager = gridLayoutManager
+
+        // RecyclerView에 Adapter 설정
+        when (category) {
+            "burger" -> {
+                tabBurgerAdapter = TabBurgerAdapter(getFilteredMenuList(11))
+                recyclerView.adapter = tabBurgerAdapter
+            }
+            "beverage" -> {
+                tabBeverageAdapter = TabBeverageAdapter(getFilteredMenuList(14, 17))
+                recyclerView.adapter = tabBeverageAdapter
+            }
+            "coffee" -> {
+                tabCoffeeAdapter = TabCoffeeAdapter(getFilteredMenuList(17))
+                recyclerView.adapter = tabCoffeeAdapter
+            }
+            "side" -> {
+                tabSideAdapter = TabSideAdapter(getFilteredMenuList(13))
+                recyclerView.adapter = tabSideAdapter
+            }
+            "dessert" -> {
+                tabDessertAdapter = TabDessertAdapter(getFilteredMenuList(15))
+                recyclerView.adapter = tabDessertAdapter
+            }
+        }
+    }
+
+    private fun getFilteredMenuList(vararg categoryIds: Int): List<MenuResponse> {
+        return menuList.filter { menu -> categoryIds.contains(menu.category_id) }
+    }
+
+    private fun loadMenuData() {
+        val apiService = RetrofitClient.instance.create(ApiService::class.java)
+
+        apiService.getMenus().enqueue(object : Callback<List<MenuResponse>> {
+            override fun onResponse(call: Call<List<MenuResponse>>, response: Response<List<MenuResponse>>) {
+                if (response.isSuccessful) {
+                    response.body()?.let { menuList = it } ?: run {
+                        Log.e("MenuMain", "Menu list is empty")
+                    }
+                } else {
+                    Log.e("MenuMain", "Response error: ${response.errorBody()}")
+                }
+            }
+
+            override fun onFailure(call: Call<List<MenuResponse>>, t: Throwable) {
+                Log.e("MenuMain", "Network error: ${t.message}")
+            }
+        })
     }
 }
