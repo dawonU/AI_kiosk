@@ -1,6 +1,7 @@
-package com.example.test
+//TabSideAdapter.kt
 
-import android.content.Intent
+package com.example.test.leftsideTab
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,29 +9,19 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.test.R
 import com.example.test.network.MenuResponse
 
-class TabBurgerAdapter(private val burgermenuList: List<MenuResponse>) : RecyclerView.Adapter<TabBurgerAdapter.MenuViewHolder>() {
+class TabSideAdapter(private val sidemenuList: List<MenuResponse>) : RecyclerView.Adapter<TabSideAdapter.MenuViewHolder>() {
 
     class MenuViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView = itemView.findViewById(R.id.nameTextView)
         val priceTextView: TextView = itemView.findViewById(R.id.priceTextView)
         val imageView: ImageView = itemView.findViewById(R.id.bc1_logo)
-
-        init {
-            itemView.setOnClickListener {
-                val context = itemView.context
-                val menu = itemView.getTag() as? MenuResponse // 클릭한 아이템의 메뉴 정보
-                val intent = Intent(context, BurgerChoice::class.java).apply {
-                    putExtra("menuName", menu?.name) // 메뉴 이름을 Intent에 추가
-                }
-                context.startActivity(intent)
-            }
-        }
     }
 
-    // category_id가 11인 데이터만 필터링
-    private val filteredMenuList: List<MenuResponse> = burgermenuList.filter { it.category_id == 11 }
+    // category_id가 13인 데이터만 필터링
+    private val filteredMenuList: List<MenuResponse> = sidemenuList.filter { it.category_id == 13 }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_menu, parent, false)
@@ -45,13 +36,9 @@ class TabBurgerAdapter(private val burgermenuList: List<MenuResponse>) : Recycle
         Glide.with(holder.imageView.context)
             .load(menu.img_url)
             .into(holder.imageView)
-
-        // ViewHolder에 메뉴 정보를 태그로 설정
-        holder.itemView.setTag(menu)
     }
 
     override fun getItemCount(): Int {
         return filteredMenuList.size
     }
 }
-

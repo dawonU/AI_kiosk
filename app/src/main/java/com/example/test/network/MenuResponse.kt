@@ -1,5 +1,3 @@
-//MenuResponse.kt
-
 package com.example.test.network
 
 data class MenuResponse(
@@ -11,16 +9,17 @@ data class MenuResponse(
     val daypart_id: Int,
     val price: Int,
     val img_url: String,
-    val sub_menus: Any ,
+    val sub_menus: Any //String
 )
+
 
 data class SubMenuResponse(
     val id: Int,
-    val img: String,
     val price: Double,
     val cat_name: String,
     val menu_name: String,
     val components: Int?,
     val choies_menu: List<Int>?,
-    val variationName: String
+    val variationName: String,
+    val img_url: String
 )

@@ -1,6 +1,6 @@
 //TabSpecialtyAdapter.kt
 
-package com.example.test
+package com.example.test.leftsideTab
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.test.R
 import com.example.test.network.MenuResponse
 
 class TabSpecialtyAdapter(private val specialtymenuList: List<MenuResponse>) : RecyclerView.Adapter<TabSpecialtyAdapter.MenuViewHolder>() {

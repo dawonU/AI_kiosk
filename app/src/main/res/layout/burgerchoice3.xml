@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--burgerchoice3.xml-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -35,21 +36,19 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/bh3_nameTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="(메뉴명)"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/bh3_priceTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="(가격)"
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     android:textStyle="bold" />
@@ -98,7 +97,7 @@
                     android:layout_height="match_parent">
 
                     <ImageView
-                        android:id="@+id/img_here"
+                        android:id="@+id/img_fries"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_centerHorizontal="true"
@@ -107,16 +106,16 @@
                         android:src="@drawable/icon_fries" />
 
                     <TextView
-                        android:id="@+id/txt_happysnack"
+                        android:id="@+id/txt_fries"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/img_here"
+                        android:layout_below="@id/img_fries"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:text="@string/Lfries"
+                        android:layout_marginBottom="30dp"
+                        android:text=""
                         android:textColor="@color/black"
-                        android:textSize="15sp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                 </RelativeLayout>
@@ -154,7 +153,19 @@
                         android:layout_marginBottom="10dp"
                         android:text="@string/coleslaw"
                         android:textColor="@color/black"
-                        android:textSize="15sp"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_coleslaw2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/img_coleslaw"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="35dp"
+                        android:layout_marginBottom="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                 </RelativeLayout>
@@ -168,10 +179,10 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
-            android:layout_marginTop="300dp">
+            android:layout_marginTop="275dp">
 
             <Button
-                android:id="@+id/btn_burgerchoice"
+                android:id="@+id/btn_bc3_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
@@ -182,7 +193,7 @@
                 android:textSize="20sp" />
 
             <Button
-                android:id="@+id/btn_burgerchoice2"
+                android:id="@+id/btn_bc3_cancle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
