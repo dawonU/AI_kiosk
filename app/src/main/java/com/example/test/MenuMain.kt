@@ -11,6 +11,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.test.leftsideTab.TabBeverageAdapter
+import com.example.test.leftsideTab.TabBurgerAdapter
+import com.example.test.leftsideTab.TabCoffeeAdapter
+import com.example.test.leftsideTab.TabDessertAdapter
+import com.example.test.leftsideTab.TabSideAdapter
+import com.example.test.leftsideTab.TabSpecialtyAdapter
+import com.example.test.network.ApiService
+import com.example.test.network.MenuResponse
+import com.example.test.network.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,11 +28,13 @@ class MenuMain : AppCompatActivity() {
 
     private lateinit var rightLayout: LinearLayout
     private lateinit var recyclerView: RecyclerView
-    private lateinit var tabBurgerAdapter: TabBurgerAdapter
+
     private lateinit var tabBeverageAdapter: TabBeverageAdapter
+    private lateinit var tabBurgerAdapter: TabBurgerAdapter
     private lateinit var tabCoffeeAdapter: TabCoffeeAdapter
-    private lateinit var tabSideAdapter: TabSideAdapter
     private lateinit var tabDessertAdapter: TabDessertAdapter
+    private lateinit var tabSideAdapter: TabSideAdapter
+    //private lateinit var tabSpecialtyAdapter: TabSpecialtyAdapter
 
     // 메뉴 데이터 리스트
     private lateinit var menuList: List<MenuResponse>
@@ -100,7 +111,7 @@ class MenuMain : AppCompatActivity() {
 
     private fun setupRecyclerView(view: View, category: String) {
         recyclerView = view.findViewById(R.id.recyclerView)
-        val gridLayoutManager = GridLayoutManager(this, 3)
+        val gridLayoutManager = GridLayoutManager(this, 2)
         recyclerView.layoutManager = gridLayoutManager
 
         // RecyclerView에 Adapter 설정
@@ -138,7 +149,10 @@ class MenuMain : AppCompatActivity() {
         apiService.getMenus().enqueue(object : Callback<List<MenuResponse>> {
             override fun onResponse(call: Call<List<MenuResponse>>, response: Response<List<MenuResponse>>) {
                 if (response.isSuccessful) {
-                    response.body()?.let { menuList = it } ?: run {
+                    response.body()?.let {
+                        menuList = it
+                        Log.d("MenuMain", "Menu list loaded: $menuList")
+                    } ?: run {
                         Log.e("MenuMain", "Menu list is empty")
                     }
                 } else {

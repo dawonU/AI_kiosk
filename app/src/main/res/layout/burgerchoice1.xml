@@ -75,7 +75,7 @@
             android:paddingRight="10dp">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/card_burgerset"
+                android:id="@+id/card_burgerSet"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
@@ -88,7 +88,7 @@
                     android:layout_height="match_parent">
 
                     <ImageView
-                        android:id="@+id/img_here"
+                        android:id="@+id/img_burgerSet"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_centerHorizontal="true"
@@ -97,23 +97,23 @@
                         android:src="@drawable/icon_maclunch" />
 
                     <TextView
-                        android:id="@+id/txt_happysnack"
+                        android:id="@+id/txt_burgerSet"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/img_here"
+                        android:layout_below="@id/img_burgerSet"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginBottom="30dp"
                         android:text="@string/choose_set"
                         android:textColor="@color/black"
-                        android:textSize="20sp"
+                        android:textSize="23sp"
                         android:textStyle="bold"/>
 
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/card_burgersingle"
+                android:id="@+id/card_burgerSingle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
@@ -126,7 +126,7 @@
                     android:layout_height="match_parent">
 
                     <ImageView
-                        android:id="@+id/img_takeaway"
+                        android:id="@+id/img_burgerSingle"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_centerHorizontal="true"
@@ -135,17 +135,29 @@
                         android:src="@drawable/icon_burger" />
 
                     <TextView
-                        android:id="@+id/txt_takeaway"
+                        android:id="@+id/txt_burgerSingle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/img_takeaway"
+                        android:layout_below="@id/img_burgerSingle"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:text="@string/choose_single"
                         android:textColor="@color/black"
-                        android:textSize="20sp"
+                        android:textSize="23sp"
                         android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/txt_burgerSingle2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/img_burgerSingle"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="35dp"
+                        android:layout_marginBottom="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
@@ -156,30 +168,19 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
-            android:layout_marginTop="300dp">
-
-            <Button
-                android:id="@+id/btn_bc1_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/btn_white_r_sq"
-                android:text="@string/back"
-                android:textSize="20sp" />
+            android:layout_marginTop="275dp">
 
             <Button
                 android:id="@+id/btn_bc1_cancle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="0dp"
+                android:layout_marginStart="25dp"
                 android:layout_marginEnd="25dp"
                 android:layout_weight="1"
                 android:background="@drawable/btn_white_r_sq"
                 android:text="@string/cancle"
                 android:textSize="20sp" />
+
         </LinearLayout>
 
     </LinearLayout>

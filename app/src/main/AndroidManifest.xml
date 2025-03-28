@@ -39,6 +39,9 @@
         <activity
             android:name=".BurgerChoice2"
             android:exported="true"/>
+        <activity
+            android:name=".BurgerChoice3"
+            android:exported="true"/>
 
     </application>
 

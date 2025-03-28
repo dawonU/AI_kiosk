@@ -48,9 +48,7 @@
                     android:textStyle="bold" />
 
             </LinearLayout>
-
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -68,7 +66,7 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-
+        <!--burgerchoice2.xml-->
         <LinearLayout
             android:id="@+id/burgerchoice"
             android:layout_width="match_parent"
@@ -92,7 +90,7 @@
                     android:layout_height="match_parent">
 
                     <ImageView
-                        android:id="@+id/img_here"
+                        android:id="@+id/img_burgerset"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_centerHorizontal="true"
@@ -104,11 +102,23 @@
                         android:id="@+id/bc2_burgerset"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/img_here"
+                        android:layout_below="@id/img_burgerset"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:text="@string/Rset"
+                        android:textColor="@color/black"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/bc2_burgerset2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/img_burgerset"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="35dp"
+                        android:layout_marginBottom="10dp"
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -130,7 +140,7 @@
                     android:layout_height="match_parent">
 
                     <ImageView
-                        android:id="@+id/img_takeaway"
+                        android:id="@+id/img_largeburgerset"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_centerHorizontal="true"
@@ -142,11 +152,23 @@
                         android:id="@+id/bc2_largeburgerset"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/img_takeaway"
+                        android:layout_below="@id/img_largeburgerset"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:text="@string/Lset"
+                        android:textColor="@color/black"
+                        android:textSize="23sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/bc2_largeburgerset2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/img_largeburgerset"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="35dp"
+                        android:layout_marginBottom="10dp"
                         android:textColor="@color/black"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -161,7 +183,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
-            android:layout_marginTop="300dp">
+            android:layout_marginTop="275dp">
 
             <Button
                 android:id="@+id/btn_bc2_back"
