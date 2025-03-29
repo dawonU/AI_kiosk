@@ -1,4 +1,4 @@
-package com.example.test.leftsideTab
+package com.example.kiosk.leftsideTab
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -8,24 +8,28 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.test.BurgerChoice
-import com.example.test.R
-import com.example.test.network.MenuResponse
+import com.example.kiosk.R
+import com.example.kiosk.network.MenuResponse
+import com.example.kiosk.network.SubMenuResponse
+import com.example.kiosk.BurgerChoice
 
 class TabBurgerAdapter(private val burgermenuList: List<MenuResponse>) : RecyclerView.Adapter<TabBurgerAdapter.MenuViewHolder>() {
 
     class MenuViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView = itemView.findViewById(R.id.nameTextView)
         val priceTextView: TextView = itemView.findViewById(R.id.priceTextView)
-        val imageView: ImageView = itemView.findViewById(R.id.bc1_logo)
+        val imageView: ImageView = itemView.findViewById(R.id.menuImgView)
 
         init {
             itemView.setOnClickListener {
                 val context = itemView.context
-                val menu = itemView.getTag() as? MenuResponse // 클릭한 아이템의 메뉴 정보
+                val menu = itemView.getTag() as? MenuResponse ?: return@setOnClickListener// 클릭한 아이템의 메뉴 정보
+
                 val intent = Intent(context, BurgerChoice::class.java).apply {
-                    putExtra("menuName", menu?.name) // 메뉴 이름을 Intent에 추가
-                    putExtra("price", menu?.price)
+                    putExtra("menuName", menu.name)
+                    putExtra("price", menu.price)
+                    putExtra("img_url", menu.img_url)
+                    putExtra("img_url_burgerSet", menu.sub_Set_img_url) // img_url_burgerSet 그대로 전달
                 }
                 context.startActivity(intent)
             }

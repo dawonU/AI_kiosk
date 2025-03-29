@@ -1,4 +1,5 @@
-package com.example.test
+// BurgerChoice2.java
+package com.example.kiosk
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,8 +7,9 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
-import com.example.test.network.ApiService
-import com.example.test.network.SubMenuResponse
+import com.example.kiosk.network.ApiService
+import com.example.kiosk.network.SubMenuResponse
+
 
 class BurgerChoice2 : AppCompatActivity() {
     private lateinit var apiService: ApiService

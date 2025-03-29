@@ -1,4 +1,4 @@
-package com.example.test
+package com.example.kiosk;
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,20 +6,23 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.test.leftsideTab.TabBeverageAdapter
-import com.example.test.leftsideTab.TabBurgerAdapter
-import com.example.test.leftsideTab.TabCoffeeAdapter
-import com.example.test.leftsideTab.TabDessertAdapter
-import com.example.test.leftsideTab.TabSideAdapter
-import com.example.test.leftsideTab.TabSpecialtyAdapter
-import com.example.test.network.ApiService
-import com.example.test.network.MenuResponse
-import com.example.test.network.RetrofitClient
+import com.example.kiosk.leftsideTab.TabBeverageAdapter
+import com.example.kiosk.leftsideTab.TabCoffeeAdapter
+import com.example.kiosk.leftsideTab.TabDessertAdapter
+import com.example.kiosk.leftsideTab.TabHappySnackAdapter
+import com.example.kiosk.leftsideTab.TabSideAdapter
+import com.example.kiosk.leftsideTab.TabSpecialtyAdapter
+import com.example.kiosk.network.RetrofitClient
+import com.example.kiosk.leftsideTab.TabBurgerAdapter
+import com.example.kiosk.leftsideTab.TabDessertBeverageAdapter
+import com.example.kiosk.network.ApiService
+import com.example.kiosk.network.MenuResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,7 +37,9 @@ class MenuMain : AppCompatActivity() {
     private lateinit var tabCoffeeAdapter: TabCoffeeAdapter
     private lateinit var tabDessertAdapter: TabDessertAdapter
     private lateinit var tabSideAdapter: TabSideAdapter
-    //private lateinit var tabSpecialtyAdapter: TabSpecialtyAdapter
+    private lateinit var tabSpecialtyAdapter: TabSpecialtyAdapter
+    private lateinit var tabDessertBeverageAdapter: TabDessertBeverageAdapter
+    private lateinit var tabHappySnackAdapter: TabHappySnackAdapter
 
     // 메뉴 데이터 리스트
     private lateinit var menuList: List<MenuResponse>
@@ -44,12 +49,17 @@ class MenuMain : AppCompatActivity() {
         setContentView(R.layout.menu_main)
 
         rightLayout = findViewById(R.id.rightLayout)
+        val btnLogo: ImageButton = findViewById(R.id.btn_logo)
 
         setupSideMenuListeners()
         setupCardMenuListeners()
-
-        // 메뉴 데이터 로드
         loadMenuData()
+
+        btnLogo.setOnClickListener {
+            val intent = Intent(this, MenuMain::class.java)
+            finish()
+            startActivity(intent)
+        }
     }
 
     private fun setupSideMenuListeners() {
@@ -65,7 +75,6 @@ class MenuMain : AppCompatActivity() {
             val intent = Intent(this, Intro::class.java)
             startActivity(intent)
         }
-
         specialtyButton.setOnClickListener { loadFragment("specialty") }
         burgerButton.setOnClickListener { loadFragment("burger") }
         sideButton.setOnClickListener { loadFragment("side") }
@@ -77,12 +86,12 @@ class MenuMain : AppCompatActivity() {
     private fun setupCardMenuListeners() {
         val maclunchCard: CardView = findViewById(R.id.Card_maclunch)
         val happysnackCard: CardView = findViewById(R.id.Card_happysnack)
-        val dessertcoffeeCard: CardView = findViewById(R.id.Card_dessertcoffee)
+        val dessertbeverageCard: CardView = findViewById(R.id.Card_dessertbeverage)
         val specialtyCard: CardView = findViewById(R.id.Card_specialty)
 
         maclunchCard.setOnClickListener { loadFragment("burger") }
         happysnackCard.setOnClickListener { loadFragment("happysnack") }
-        dessertcoffeeCard.setOnClickListener { loadFragment("dessertcoffee") }
+        dessertbeverageCard.setOnClickListener { loadFragment("dessertbeverage") }
         specialtyCard.setOnClickListener { loadFragment("specialty") }
     }
 
@@ -92,7 +101,8 @@ class MenuMain : AppCompatActivity() {
         val newView = inflater.inflate(getLayoutIdByCategory(category), rightLayout, false)
         rightLayout.addView(newView)
 
-        if (category in listOf("burger", "beverage", "coffee", "dessert", "side")) {
+        if (category in listOf("tab_specialty", "burger", "side", "coffee", "dessert", "beverage",
+                "dessertbeverage", "happysnack")) {
             setupRecyclerView(newView, category)
         }
     }
@@ -105,17 +115,23 @@ class MenuMain : AppCompatActivity() {
             "coffee" -> R.layout.tab_coffee
             "beverage" -> R.layout.tab_beverage
             "specialty" -> R.layout.tab_specialty
+            "dessertbeverage" -> R.layout.tab_dessertbeverage
+            "happysnack" -> R.layout.tab_happysnack
             else -> R.layout.tab_specialty // 기본값
         }
     }
 
     private fun setupRecyclerView(view: View, category: String) {
         recyclerView = view.findViewById(R.id.recyclerView)
-        val gridLayoutManager = GridLayoutManager(this, 2)
+        val gridLayoutManager = GridLayoutManager(this, 3)
         recyclerView.layoutManager = gridLayoutManager
 
         // RecyclerView에 Adapter 설정
         when (category) {
+            /*"specialty" -> {
+                tabSpecialtyAdapter = TabSpecialtyAdapter(getFilteredMenuList(13))
+                recyclerView.adapter = tabSpecialtyAdapter
+            }*/
             "burger" -> {
                 tabBurgerAdapter = TabBurgerAdapter(getFilteredMenuList(11))
                 recyclerView.adapter = tabBurgerAdapter
@@ -135,6 +151,14 @@ class MenuMain : AppCompatActivity() {
             "dessert" -> {
                 tabDessertAdapter = TabDessertAdapter(getFilteredMenuList(15))
                 recyclerView.adapter = tabDessertAdapter
+            }
+            "dessertbeverage" -> {
+                tabDessertBeverageAdapter = TabDessertBeverageAdapter(getFilteredMenuList(14,15,17))
+                recyclerView.adapter = tabDessertBeverageAdapter
+            }
+            "happysnack" -> {
+                tabHappySnackAdapter = TabHappySnackAdapter(getFilteredMenuList(18))
+                recyclerView.adapter = tabHappySnackAdapter
             }
         }
     }
