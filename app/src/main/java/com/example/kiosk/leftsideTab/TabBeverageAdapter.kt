@@ -1,6 +1,6 @@
-//TabSpecialtyAdapter.kt
+//TabBeverageAdapter.kt
 
-package com.example.test.leftsideTab
+package com.example.kiosk.leftsideTab
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,19 +9,19 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.test.R
-import com.example.test.network.MenuResponse
+import com.example.kiosk.R
+import com.example.kiosk.network.MenuResponse
 
-class TabSpecialtyAdapter(private val specialtymenuList: List<MenuResponse>) : RecyclerView.Adapter<TabSpecialtyAdapter.MenuViewHolder>() {
+class TabBeverageAdapter(private val beveragemenuList: List<MenuResponse>) : RecyclerView.Adapter<TabBeverageAdapter.MenuViewHolder>() {
 
     class MenuViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView = itemView.findViewById(R.id.nameTextView)
         val priceTextView: TextView = itemView.findViewById(R.id.priceTextView)
-        val imageView: ImageView = itemView.findViewById(R.id.bc1_logo)
+        val imageView: ImageView = itemView.findViewById(R.id.menuImgView)
     }
 
-    // category_id가 13인 데이터만 필터링
-    private val filteredMenuList: List<MenuResponse> = specialtymenuList.filter { it.category_id == 13 }
+    // category_id가 14,17인 데이터만 필터링
+    private val filteredMenuList: List<MenuResponse> = beveragemenuList.filter { it.category_id == 14 || it.category_id == 17 }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_menu, parent, false)

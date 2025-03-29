@@ -1,5 +1,5 @@
 // java>network>ApiService
-package com.example.test.network
+package com.example.kiosk.network
 
 import retrofit2.Call
 import retrofit2.Callback

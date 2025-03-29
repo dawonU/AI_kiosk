@@ -1,7 +1,7 @@
 // 버튼 기능 연결
 // 비디오 출력 확인
 
-package com.example.test
+package com.example.kiosk
 
 import android.net.Uri
 import android.os.Bundle

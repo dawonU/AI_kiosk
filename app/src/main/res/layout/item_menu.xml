@@ -15,7 +15,7 @@
         android:gravity="center">
 
         <ImageView
-            android:id="@+id/bc1_logo"
+            android:id="@+id/menuImgView"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:scaleType="centerInside" />
@@ -25,16 +25,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textSize="15sp"
-            android:textColor="@android:color/black"
-            android:layout_marginTop="2dp"/>
+            android:textSize="13sp"
+            android:textColor="@android:color/black" />
 
         <TextView
             android:id="@+id/priceTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textSize="15sp"
+            android:textSize="13sp"
             android:textColor="@android:color/black"
             android:layout_marginTop="2dp"/>
     </LinearLayout>

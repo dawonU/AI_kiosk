@@ -1,6 +1,6 @@
-//TabSideAdapter.kt
+//TabDessertBeverageAdapter.kt
 
-package com.example.test.leftsideTab
+package com.example.kiosk.leftsideTab
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,19 +9,23 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.test.R
-import com.example.test.network.MenuResponse
+import com.example.kiosk.R
+import com.example.kiosk.network.MenuResponse
 
-class TabSideAdapter(private val sidemenuList: List<MenuResponse>) : RecyclerView.Adapter<TabSideAdapter.MenuViewHolder>() {
+
+class TabDessertBeverageAdapter(
+    private val dessertNbeveragemenuList: List<MenuResponse>) : RecyclerView.Adapter<TabDessertBeverageAdapter.MenuViewHolder>() {
 
     class MenuViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView = itemView.findViewById(R.id.nameTextView)
         val priceTextView: TextView = itemView.findViewById(R.id.priceTextView)
-        val imageView: ImageView = itemView.findViewById(R.id.bc1_logo)
+        val imageView: ImageView = itemView.findViewById(R.id.menuImgView)
     }
 
-    // category_id가 13인 데이터만 필터링
-    private val filteredMenuList: List<MenuResponse> = sidemenuList.filter { it.category_id == 13 }
+    // category_id가 14,17인 데이터만 필터링
+    private val filteredMenuList: List<MenuResponse> = dessertNbeveragemenuList.filter {
+        it.category_id == 14 || it.category_id == 15 || it.category_id == 17
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_menu, parent, false)
@@ -31,11 +35,12 @@ class TabSideAdapter(private val sidemenuList: List<MenuResponse>) : RecyclerVie
     override fun onBindViewHolder(holder: MenuViewHolder, position: Int) {
         val menu = filteredMenuList[position]
         holder.nameTextView.text = menu.name
-        holder.priceTextView.text = "₩: ${menu.price}"
+        holder.priceTextView.text = "${menu.price}원"
 
         Glide.with(holder.imageView.context)
             .load(menu.img_url)
             .into(holder.imageView)
+        //holder.itemView.setTag(menu)
     }
 
     override fun getItemCount(): Int {

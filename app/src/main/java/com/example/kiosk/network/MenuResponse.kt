@@ -1,4 +1,4 @@
-package com.example.test.network
+package com.example.kiosk.network
 
 data class MenuResponse(
     val id: Int,
@@ -9,7 +9,9 @@ data class MenuResponse(
     val daypart_id: Int,
     val price: Int,
     val img_url: String,
+    val sub_Set_img_url: String,
     val sub_menus: Any //String
+
 )
 
 

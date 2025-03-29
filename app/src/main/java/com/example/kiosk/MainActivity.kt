@@ -1,5 +1,5 @@
 //MainActivity
-package com.example.test
+package com.example.kiosk
 
 import android.content.Intent
 import android.os.Bundle
