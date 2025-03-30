@@ -24,7 +24,7 @@ class TabDessertAdapter(private val dessertmenuList: List<MenuResponse>) : Recyc
     private val filteredMenuList: List<MenuResponse> = dessertmenuList.filter { it.category_id == 15 }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_menu, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.menu_item, parent, false)
         return MenuViewHolder(view)
     }
 

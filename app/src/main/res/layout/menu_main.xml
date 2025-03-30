@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,15 +12,18 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <!-- 상단 화면 영역 -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+>
 
             <LinearLayout
                 android:id="@+id/leftLayout"
                 android:layout_width="130dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <ImageButton
@@ -41,7 +45,6 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
-
             <LinearLayout
                 android:id="@+id/rightLayout"
                 android:layout_width="0dp"
@@ -50,18 +53,12 @@
                 android:orientation="vertical">
 
                 <include layout="@layout/menu_card" />
-
-
             </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+        <!-- 하단 화면 영역 -->
+        <include layout="@layout/order_main" />
 
-            <include layout="@layout/menu_orderlist" />
-        </LinearLayout>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

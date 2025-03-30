@@ -24,7 +24,7 @@ class TabSideAdapter(private val sidemenuList: List<MenuResponse>) : RecyclerVie
     private val filteredMenuList: List<MenuResponse> = sidemenuList.filter { it.category_id == 13 }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_menu, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.menu_item, parent, false)
         return MenuViewHolder(view)
     }
 
