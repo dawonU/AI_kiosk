@@ -46,7 +46,7 @@ class TabBurgerAdapter(private val burgermenuList: List<MenuResponse>) : Recycle
     private val filteredMenuList: List<MenuResponse> = burgermenuList.filter { it.category_id == 11 }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_menu, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.menu_item, parent, false)
         return MenuViewHolder(view)
     }
 

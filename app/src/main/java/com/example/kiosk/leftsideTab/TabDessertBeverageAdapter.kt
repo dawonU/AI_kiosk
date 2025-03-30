@@ -28,7 +28,7 @@ class TabDessertBeverageAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_menu, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.menu_item, parent, false)
         return MenuViewHolder(view)
     }
 

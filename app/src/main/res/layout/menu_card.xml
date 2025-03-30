@@ -5,22 +5,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:id="@+id/txt_menu_card">
 
     <TextView
         android:id="@+id/txt_menuDiv"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="40dp"
         app:layout_constraintBottom_toTopOf="@id/vLayout_mainmenu"
-
         android:layout_marginStart="15dp"
 
         android:text="@string/divMenu"
         android:textColor="@color/black"
         android:textSize="30sp" />
-
 
     <LinearLayout
         android:id="@+id/vLayout_mainmenu"

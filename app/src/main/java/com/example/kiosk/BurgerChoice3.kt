@@ -26,7 +26,6 @@ class BurgerChoice3 : AppCompatActivity() {
         findViewById<TextView>(R.id.bh3_nameTextView).text = menuName ?: ""
 
         // 전달 받은 추가 데이터
-        val subSetCatName = intent.getStringExtra("sub_Set_cat_name")
         val subSetPrice = intent.getIntExtra("subSetPrice", 0)
         val subLSetPrice = intent.getIntExtra("subLSetPrice", 0)
         val friesImgUrl = intent.getStringExtra("fries_img_url")
@@ -51,18 +50,8 @@ class BurgerChoice3 : AppCompatActivity() {
             Glide.with(this).load(cokeImgUrl).into(imageView)
         }
 
-        // 카드 클릭 이벤트 (필요시 다음 액티비티로 전환)
-        findViewById<View>(R.id.card_fries).setOnClickListener {
-            Intent(this, BurgerChoice4::class.java).apply {
-                putExtra("subSetCatName", subSetCatName)
-                startActivity(this)
-            }
-        }
-        findViewById<View>(R.id.card_coke).setOnClickListener {
-            Intent(this, BurgerChoice4::class.java).apply {
-                putExtra("subSetCatName", subSetCatName)
-                startActivity(this)
-            }
+        findViewById<Button>(R.id.addCart).setOnClickListener {
+            startActivity(Intent(this, MenuMain::class.java))
         }
 
         // 뒤로가기, 취소 버튼 클릭 이벤트

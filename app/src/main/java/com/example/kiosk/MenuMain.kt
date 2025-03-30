@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.GridLayoutManager
@@ -28,6 +29,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MenuMain : AppCompatActivity() {
+    private lateinit var timerHelper: TimerHelper
 
     private lateinit var rightLayout: LinearLayout
     private lateinit var recyclerView: RecyclerView
@@ -44,9 +46,14 @@ class MenuMain : AppCompatActivity() {
     // 메뉴 데이터 리스트
     private lateinit var menuList: List<MenuResponse>
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.menu_main)
+
+        val orderTimerTextView = findViewById<TextView>(R.id.order_timer)
+        timerHelper = TimerHelper(this, orderTimerTextView)
+        timerHelper.startTimer()
 
         rightLayout = findViewById(R.id.rightLayout)
         val btnLogo: ImageButton = findViewById(R.id.btn_logo)
@@ -60,6 +67,23 @@ class MenuMain : AppCompatActivity() {
             finish()
             startActivity(intent)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // 타이머가 중지되어 있다면 재시작
+        timerHelper.startTimer()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // 액티비티가 백그라운드로 갈 때 타이머 중지
+        timerHelper.stopTimer()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        timerHelper.stopTimer()
     }
 
     private fun setupSideMenuListeners() {
