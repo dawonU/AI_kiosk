@@ -14,66 +14,63 @@ class BurgerChoice3 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.burgerchoice3)
 
-
-        // 메뉴 이름 및 가격 설정
-        val intent = intent
-        val nameTextView = findViewById<TextView>(R.id.bh3_nameTextView)
-        val nameFries = findViewById<TextView>(R.id.txt_fries)
-        val nameColeslaws = findViewById<TextView>(R.id.txt_coleslaw)
-
+        // BurgerChoice 에서 전달된 기본 데이터
         val menuName = intent.getStringExtra("menuName")
-        //
-        val cardFries = findViewById<View>(R.id.card_fries)
-        val imgFries = findViewById<ImageView>(R.id.img_fries)
-        val txtFries = intent.getStringExtra("menuName")
-        val img_url_Fries = intent.getStringExtra("img_url")
-        //
-        val cardColeslaws = findViewById<View>(R.id.card_coleslaw)
-        val imgColeslaws = findViewById<ImageView>(R.id.img_coleslaw)
-        val txtColeslaw = intent.getStringExtra("txt_coleslaw")
-        val img_url_Coleslaws = intent.getStringExtra("img_url")
+        val imgUrl = intent.getStringExtra("img_url")
 
+        // 기본 UI 요소 초기화 (BurgerChoice의 기본 이미지와 메뉴명)
+        findViewById<ImageView>(R.id.bc3_img_burgerSingle).also { imageView ->
+            Glide.with(this).load(imgUrl).into(imageView)
+        }
+        findViewById<TextView>(R.id.txt_burger).text = menuName ?: ""
+        findViewById<TextView>(R.id.bh3_nameTextView).text = menuName ?: ""
 
-        nameTextView.text = menuName
-        nameFries.text = "$txtFries"
-        nameColeslaws.text = "$txtColeslaw"
+        // 전달 받은 추가 데이터
+        val subSetCatName = intent.getStringExtra("sub_Set_cat_name")
+        val subSetPrice = intent.getIntExtra("subSetPrice", 0)
+        val subLSetPrice = intent.getIntExtra("subLSetPrice", 0)
+        val friesImgUrl = intent.getStringExtra("fries_img_url")
+        val friesName = intent.getStringExtra("fries_name")
+        val cokeImgUrl = intent.getStringExtra("coke_img_url")
+        val cokeM_name = intent.getStringExtra("cokeM_name")
+        val cokeL_name = intent.getStringExtra("cokeL_name")
 
+        // UI 요소 초기화 (감자튀김, 콜라 관련)
+        findViewById<TextView>(R.id.bh3_priceTextView).text =
+            if (subSetPrice != 0) "총 가격: $subSetPrice 원"
+            else if (subLSetPrice != 0) "총 가격: $subLSetPrice 원"
+            else "가격 없음"
 
-        Glide.with(this)
-            .load(img_url_Fries)
-            .into(imgFries)
+        findViewById<TextView>(R.id.txt_fries).text = friesName ?: ""
+        findViewById<TextView>(R.id.txt_coke).text = cokeM_name ?: cokeL_name ?: ""
 
-        Glide.with(this)
-            .load(img_url_Coleslaws)
-            .into(imgColeslaws)
-
-
-        // cardFries 선택
-//        cardFries.setOnClickListener {
-//            val Intent = Intent(this, OptionalBurgerset4::class.java)
-//            Intent.putExtra("menuName", menuName) // 메뉴 이름 전달
-//            startActivity(Intent)
-//        }
-//
-//        // cardColeslaws 선택
-//        cardColeslaws.setOnClickListener {
-//            val Intent = Intent(this, OptionalBurgerset4::class.java)
-//            Intent.putExtra("menuName", menuName) // 메뉴 이름 전달
-//            startActivity(Intent)
-//        }
-
-        // 이전 화면으로 가기
-        val btnBurgerChoice = findViewById<Button>(R.id.btn_bc3_back)
-        btnBurgerChoice.setOnClickListener {
-            finish()
+        findViewById<ImageView>(R.id.img_fries).also { imageView ->
+            Glide.with(this).load(friesImgUrl).into(imageView)
+        }
+        findViewById<ImageView>(R.id.img_coke).also { imageView ->
+            Glide.with(this).load(cokeImgUrl).into(imageView)
         }
 
-        // 이전의 전 화면으로 가기 (예: MainActivity.class)
-        val btnBurgerChoice2 = findViewById<Button>(R.id.btn_bc3_cancle)
-        btnBurgerChoice2.setOnClickListener {
-            val newIntent = Intent(this, MenuMain::class.java)
-            startActivity(newIntent)
+        // 카드 클릭 이벤트 (필요시 다음 액티비티로 전환)
+        findViewById<View>(R.id.card_fries).setOnClickListener {
+            Intent(this, BurgerChoice4::class.java).apply {
+                putExtra("subSetCatName", subSetCatName)
+                startActivity(this)
+            }
+        }
+        findViewById<View>(R.id.card_coke).setOnClickListener {
+            Intent(this, BurgerChoice4::class.java).apply {
+                putExtra("subSetCatName", subSetCatName)
+                startActivity(this)
+            }
+        }
+
+        // 뒤로가기, 취소 버튼 클릭 이벤트
+        findViewById<Button>(R.id.btn_bc3_back).setOnClickListener { finish() }
+        findViewById<Button>(R.id.btn_bc3_cancle).setOnClickListener {
+            startActivity(Intent(this, MenuMain::class.java))
             finish()
         }
     }
 }
+

@@ -43,10 +43,12 @@
     <string name="choose_set">세트선택</string>
     <string name="choose_single">단품선택</string>
     <!--burger choice 2-->
-    <string name="set">세트메뉴</string>
+    <string name="setmenu">세트 메뉴</string>
     <string name="Rset">세트</string>
     <string name="Lset">라지세트</string>
     <!--burger choice 3-->
+    <string name="menu_component">메뉴 구성 </string>
+    <string name="sidemenu">사이드 메뉴 </string>
     <string name="Lfries">후렌치후라이-라지 </string>
     <string name="coleslaw">코울슬로 </string>
 

@@ -9,7 +9,17 @@ data class MenuResponse(
     val daypart_id: Int,
     val price: Int,
     val img_url: String,
+
     val sub_Set_img_url: String,
+    val sub_Set_price: Int,
+    val sub_Set_cat_name: String,
+    val sub_Set_menu_name: String,
+
+    val sub_LSet_img_url: String,
+    val sub_LSet_price: Int,
+    val sub_LSet_cat_name: String,
+    val sub_LSet_menu_name: String,
+
     val sub_menus: Any //String
 
 )

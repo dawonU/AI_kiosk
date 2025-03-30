@@ -3,7 +3,6 @@ package com.example.kiosk;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,58 +19,73 @@ public class BurgerChoice extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.burgerchoice1);
 
-        // Intent로부터 데이터 가져오기
+        // TabBurgerAdapter에서 전달한 데이터만 받아오기
         Intent intent = getIntent();
         String menuName = intent.getStringExtra("menuName");
+        String sub_Set_cat_name = intent.getStringExtra("sub_Set_cat_name");
+        String sub_LSet_cat_name = intent.getStringExtra("sub_LSet_cat_name");
+        int id = intent.getIntExtra("id", 0);
         int price = intent.getIntExtra("price", 0);
         String img_url = intent.getStringExtra("img_url");
         String img_url_burgerSet = intent.getStringExtra("img_url_burgerSet");
-
-        Log.d("BurgerChoice", "img_url_burgerSet: " + img_url_burgerSet);
+        int subSetPrice = intent.getIntExtra("Setprice", 0);
+        int subLSetPrice = intent.getIntExtra("LSetprice", 0);
 
         // UI 요소 초기화
-        TextView nameTextView = findViewById(R.id.bh1_nameTextView); //상단메뉴명
+        TextView nameTextView = findViewById(R.id.bh1_nameTextView);      // 메뉴명 표시
+        TextView priceTextView = findViewById(R.id.txt_burgerSingle2);      // 단품 가격 표시
+        ImageView imgBurgerSingle = findViewById(R.id.img_burgerSingle);    // 단품 이미지
+        ImageView imgBurgerSet = findViewById(R.id.img_burgerSet);          // 세트 이미지
+        Button cancelButton = findViewById(R.id.btn_bc1_cancle);            // 취소 버튼
 
-        View cardBurgerSet = findViewById(R.id.card_burgerSet); //세트메뉴
-        ImageView imgBurgerSet = findViewById(R.id.img_burgerSet);
-
-        View cardBurgerSingle = findViewById(R.id.card_burgerSingle); //단품메뉴
-        ImageView imgBurgerSingle = findViewById(R.id.img_burgerSingle);
-        TextView priceTextView = findViewById(R.id.txt_burgerSingle2);
-
-        Button cancelButton = findViewById(R.id.btn_bc1_cancle); //하단 취소버튼
-
-
-        // 메뉴 이름 및 가격 설정
+        // 받아온 데이터로 UI 구성
         nameTextView.setText(menuName);
         priceTextView.setText(price + " 원");
 
-        // 이미지 로드
-        Glide.with(this)
-                .load(img_url_burgerSet)
-                .into(imgBurgerSet);
+        // 이미지 로드 (Glide 라이브러리 사용)
         Glide.with(this)
                 .load(img_url)
                 .into(imgBurgerSingle);
-
-        // 취소 버튼 클릭 리스너
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish(); // 이전 화면으로 돌아가기
-            }
-        });
+        Glide.with(this)
+                .load(img_url_burgerSet)
+                .into(imgBurgerSet);
 
 
-        // 세트 선택 카드 클릭 리스너
+        // 세트 메뉴 카드 클릭 리스너 (필요한 경우 다음 액티비티로 필요한 데이터만 전달)
+        View cardBurgerSet = findViewById(R.id.card_burgerSet);
         cardBurgerSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(BurgerChoice.this, BurgerChoice2.class);
-                intent.putExtra("menuName", menuName); // 메뉴 이름 전달
-                intent.putExtra("price", price); // 가격 전달
-                intent.putExtra("img_url_burgerSet", img_url_burgerSet);
-                startActivity(intent); // BurgerChoice2 액티비티 시작
+                Intent nextIntent = new Intent(BurgerChoice.this, BurgerChoice2.class);
+                nextIntent.putExtra("menuName", menuName);
+                nextIntent.putExtra("sub_Set_cat_name", sub_Set_cat_name);
+                nextIntent.putExtra("sub_LSet_cat_name", sub_LSet_cat_name);
+                nextIntent.putExtra("price", price);
+                nextIntent.putExtra("img_url", img_url);
+                nextIntent.putExtra("img_url_burgerSet", img_url_burgerSet);
+                nextIntent.putExtra("sub_Set_price", subSetPrice);
+                nextIntent.putExtra("sub_LSet_price", subLSetPrice);
+                startActivity(nextIntent);
+            }
+        });
+
+        View card_burgerSingle = findViewById(R.id.card_burgerSingle);
+        card_burgerSingle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nextIntent = new Intent(BurgerChoice.this, MenuMain.class);
+                nextIntent.putExtra("menuName", menuName);
+                nextIntent.putExtra("price", price);
+                nextIntent.putExtra("img_url", img_url);
+                startActivity(nextIntent);
+            }
+        });
+
+        // 취소 버튼 클릭 시 현재 액티비티 종료
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

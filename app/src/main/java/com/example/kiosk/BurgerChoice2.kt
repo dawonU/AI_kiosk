@@ -4,84 +4,94 @@ package com.example.kiosk
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import com.bumptech.glide.Glide
 import com.example.kiosk.network.ApiService
-import com.example.kiosk.network.SubMenuResponse
 
 
 class BurgerChoice2 : AppCompatActivity() {
-    private lateinit var apiService: ApiService
+    private lateinit var apiService: ApiService  // apiService 사용 코드가 없으면 제거 고려
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.burgerchoice2)
 
-        // 메뉴 이름 설정
-        val nameTextView = findViewById<TextView>(R.id.bh2_nameTextView)
-        val intent = intent
-        val menuName = intent.getStringExtra("menuName") // 메뉴 이름을 Intent에서 가져옴
-        nameTextView.text = menuName // TextView에 설정
+        // 메뉴 이름 초기화 및 설정
+        val menuName = intent.getStringExtra("menuName")
+        findViewById<TextView>(R.id.bh2_nameTextView).text = menuName
 
-
-        // 버튼 초기화
-        val btnBurgerChoice = findViewById<Button>(R.id.btn_bc2_back)
-        val btnBurgerChoice2 = findViewById<Button>(R.id.btn_bc2_cancle)
-
-        // 카드 초기화
-        val cardBurgerSet = findViewById<CardView>(R.id.card_burgerset)
-        val cardBurgerLargeSet = findViewById<CardView>(R.id.card_burgerlargeset)
-
-        // 가격 표시할 TextView 초기화
-        val priceTextViewSet = findViewById<TextView>(R.id.bc2_burgerset2)
-        val priceTextViewLargeSet = findViewById<TextView>(R.id.bc2_largeburgerset2)
-
-        // card_burgerset 클릭 시
-        cardBurgerSet.setOnClickListener {
-            val intent = Intent(this, BurgerChoice3::class.java)
-            intent.putExtra("friesSize", "후렌치후라이-미디엄") // 데이터 전송
-            intent.putExtra("menuName", menuName)
-            intent.putExtra("coleslawValue", "+500원")
-            startActivity(intent)
+        // 이미지 초기화
+        val img_url = intent.getStringExtra("img_url")
+        val imgUrlBurgerSet = intent.getStringExtra("img_url_burgerSet")
+        findViewById<ImageView>(R.id.img_burgerset).also { imageView ->
+            Glide.with(this).load(imgUrlBurgerSet).into(imageView)
+        }
+        findViewById<ImageView>(R.id.img_largeburgerset).also { imageView ->
+            Glide.with(this).load(imgUrlBurgerSet).into(imageView)
         }
 
-        // card_burgerlargeset 클릭 시
-        cardBurgerLargeSet.setOnClickListener {
-            val intent = Intent(this, BurgerChoice3::class.java)
-            intent.putExtra("friesSize", "후렌치후라이-라지") // 데이터 전송
-            intent.putExtra("menuName", menuName)
-            intent.putExtra("coleslawValue", "")
-            startActivity(intent)
-        }
+        // 가격 데이터 intent로부터 받아오기
+        val subSetPrice = intent.getIntExtra("sub_Set_price", 0)
+        val subLSetPrice = intent.getIntExtra("sub_LSet_price", 0)
+        findViewById<TextView>(R.id.bc2_burgerset2).text =
+            if (subSetPrice != 0) "$subSetPrice 원" else "가격 없음"
+        findViewById<TextView>(R.id.bc2_largeburgerset2).text =
+            if (subLSetPrice != 0) "$subLSetPrice 원" else "가격 없음"
 
-        // 이전 화면으로 가기
-        btnBurgerChoice.setOnClickListener {
-            finish()
-        }
+        // 세트 카테고리명
+        val sub_Set_cat_name = intent.getStringExtra("sub_Set_cat_name")
+        val sub_LSet_cat_name = intent.getStringExtra("sub_LSet_cat_name")
 
-        // 이전의 전 화면으로 가기 (예: MainActivity.class)
-        btnBurgerChoice2.setOnClickListener {
-            val intent = Intent(this, MenuMain::class.java)
-            startActivity(intent)
-            finish()
-        }
-    }
-
-    private fun fetchMenuPrices(menuName: String?, priceTextViewSet: TextView, priceTextViewLargeSet: TextView) {
-        apiService.fetchMenus { prices ->
-            if (prices != null) {
-                // prices를 SubMenuResponse 리스트로 처리
-                val setPrice = prices.filterIsInstance<SubMenuResponse>().firstOrNull { it.variationName == "세트" }
-                val largeSetPrice = prices.filterIsInstance<SubMenuResponse>().firstOrNull { it.variationName == "라지세트" }
-
-                // 가격 설정
-                priceTextViewSet.text = (setPrice?.price?.toString() + " 원") ?: "가격 없음"
-                priceTextViewLargeSet.text = (largeSetPrice?.price?.toString() + " 원") ?: "가격 없음"
-            } else {
-                priceTextViewSet.text = "가격 없음"
-                priceTextViewLargeSet.text = "가격 없음"
+        // 버튼, 카드 초기화 및 이벤트 처리
+        findViewById<CardView>(R.id.card_burgerset).setOnClickListener {
+            Intent(this, BurgerChoice3::class.java).apply {
+                putExtra("menuName", menuName)
+                putExtra("img_url", img_url)
+                putExtra("sub_Set_cat_name", sub_Set_cat_name)
+                putExtra("subSetPrice", subSetPrice)
+                putExtra(
+                    "fries_img_url",
+                    "https://www.mcdelivery.co.kr/kr//static/1738737640738/assets/82/products/1402.png"
+                )
+                putExtra("fries_name", "후렌치 후라이 (미디엄)")
+                putExtra(
+                    "coke_img_url",
+                    "https://www.mcdelivery.co.kr/kr//static/1738737640738/assets/82/products/1506.png?"
+                )
+                putExtra("cokeM_name", "코카콜라 (미디엄)")
+                startActivity(this)
             }
+        }
+
+        findViewById<CardView>(R.id.card_burgerlargeset).setOnClickListener {
+            Intent(this, BurgerChoice3::class.java).apply {
+                putExtra("menuName", menuName)
+                putExtra("img_url", img_url)
+                putExtra("sub_LSet_cat_name", sub_LSet_cat_name)
+                putExtra("subLSetPrice", subLSetPrice)
+                putExtra(
+                    "fries_img_url",
+                    "https://www.mcdelivery.co.kr/kr//static/1738737640738/assets/82/products/1403.png"
+                )
+                putExtra("fries_name", "후렌치 후라이 (라지)")
+                putExtra(
+                    "coke_img_url",
+                    "https://www.mcdelivery.co.kr/kr//static/1738737640738/assets/82/products/1506.png?"
+                )
+                putExtra("cokeL_name", "코카콜라 (라지)")
+                startActivity(this)
+            }
+        }
+
+        findViewById<Button>(R.id.btn_bc2_back).setOnClickListener { finish() }
+        findViewById<Button>(R.id.btn_bc2_cancle).setOnClickListener {
+            startActivity(Intent(this, MenuMain::class.java))
+            finish()
         }
     }
 }
+
 
