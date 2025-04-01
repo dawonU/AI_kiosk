@@ -43,6 +43,7 @@
             android:name=".BurgerChoice3"
             android:exported="true"/>
 
+
     </application>
 
 </manifest>

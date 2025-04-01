@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.GridLayoutManager
@@ -58,17 +60,66 @@ class MenuMain : AppCompatActivity() {
 
         val orderTimerTextView = findViewById<TextView>(R.id.order_timer)
         timerHelper = TimerHelper(this, orderTimerTextView)
-
-        // 타이머 종료 시 처리할 콜백 설정
         timerHelper.setOnTimerFinishListener(object : TimerHelper.OnTimerFinishListener {
-            override fun onTimerFinish() {
-                // 장바구니 초기화
-                cartItemList.clear()
+            override fun onTimerFinish() {// 타이머=0 일때
+                cartItemList.clear() // -> 장바구니 초기화
                 addCartAdapter.notifyDataSetChanged()
-                updateTotalPrice()  // 총 금액 TextView가 "0 원"으로 업데이트됨
+                updateTotalPrice()  // 총 금액 초기화
             }
         })
         timerHelper.startTimer()
+
+        val btnOrderPay = findViewById<Button>(R.id.btn_order_pay)
+        btnOrderPay.setOnClickListener {
+            // pay.xml 팝업을 새로 inflate
+            val dialogView = layoutInflater.inflate(R.layout.pay, null)
+            val dialog = AlertDialog.Builder(this)
+                .setView(dialogView)
+                .create()
+
+            // pay.xml 내의 recycler_orderList 설정
+            val recyclerOrderList = dialogView.findViewById<RecyclerView>(R.id.recycler_orderList)
+            recyclerOrderList.layoutManager = LinearLayoutManager(this)
+            val payAdapter = PayAdapter(cartItemList) // cartItemList 기반 데이터 바인딩
+            recyclerOrderList.adapter = payAdapter
+
+            // 총 금액 계산 및 표시
+            val txtPayTotalPrice2 = dialogView.findViewById<TextView>(R.id.txt_pay_totalPrice2)
+            val totalPrice = cartItemList.sumOf { item ->
+                val price = if (item.getSubSetPrice() != 0) item.getSubSetPrice() else item.getSubLSetPrice()
+                price * item.getQuantity()
+            }
+            txtPayTotalPrice2.text = "$totalPrice 원"
+
+            // pay.xml 내의 btn_pay_back : 클릭 시 팝업 닫기
+            val btnPayBack = dialogView.findViewById<Button>(R.id.btn_pay_back)
+            btnPayBack.setOnClickListener {
+                dialog.dismiss()
+            }
+
+            // pay.xml 내의 btn_pay_next : 클릭 시 팝업 닫고 pay_end.xml 팝업 띄우기
+            val btnPayNext = dialogView.findViewById<Button>(R.id.btn_pay_next)
+            btnPayNext.setOnClickListener {
+                dialog.dismiss() // 현재 팝업 닫기
+
+                // pay_end.xml 팝업 인플레이트
+                val payEndDialogView = layoutInflater.inflate(R.layout.pay_end, null)
+                val payEndDialog = AlertDialog.Builder(this)
+                    .setView(payEndDialogView)
+                    .create()
+
+                // pay_end.xml 내의 btn_payend 클릭 시 Intro 액티비티로 이동
+                val btnPayEnd = payEndDialogView.findViewById<Button>(R.id.btn_payend)
+                btnPayEnd.setOnClickListener {
+                    payEndDialog.dismiss()
+                    val intent = Intent(this, Intro::class.java)
+                    startActivity(intent)
+                }
+                payEndDialog.show()
+            }
+            dialog.show()
+        }
+
 
         rightLayout = findViewById(R.id.rightLayout)
         setupSideMenuListeners()
@@ -291,4 +342,31 @@ class MenuMain : AppCompatActivity() {
             }
         })
     }
+}
+
+// PayAdapter
+class PayAdapter(private val cartList: ArrayList<AddCart.CartItem>) :
+    RecyclerView.Adapter<PayAdapter.ViewHolder>() {
+
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val menuName: TextView = itemView.findViewById(R.id.pay_item_menuName)
+        val menuNum: TextView = itemView.findViewById(R.id.pay_item_memuNum)
+        val menuPrice: TextView = itemView.findViewById(R.id.pay_item_menuPrice)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.pay_detail_item, parent, false)
+        return ViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = cartList[position]
+        holder.menuName.text = item.getMenuName()
+        holder.menuNum.text = item.getQuantity().toString()
+        val price = if (item.getSubSetPrice() != 0) item.getSubSetPrice() else item.getSubLSetPrice()
+        holder.menuPrice.text = "${price}원"
+    }
+
+    override fun getItemCount(): Int = cartList.size
 }
