@@ -1,4 +1,4 @@
-package com.example.kiosk;
+package com.example.kiosk
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,18 +12,19 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kiosk.leftsideTab.TabBeverageAdapter
+import com.example.kiosk.leftsideTab.TabBurgerAdapter
 import com.example.kiosk.leftsideTab.TabCoffeeAdapter
 import com.example.kiosk.leftsideTab.TabDessertAdapter
 import com.example.kiosk.leftsideTab.TabHappySnackAdapter
 import com.example.kiosk.leftsideTab.TabSideAdapter
 import com.example.kiosk.leftsideTab.TabSpecialtyAdapter
-import com.example.kiosk.network.RetrofitClient
-import com.example.kiosk.leftsideTab.TabBurgerAdapter
 import com.example.kiosk.leftsideTab.TabDessertBeverageAdapter
-import com.example.kiosk.network.ApiService
 import com.example.kiosk.network.MenuResponse
+import com.example.kiosk.network.RetrofitClient
+import com.example.kiosk.network.ApiService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -46,6 +47,10 @@ class MenuMain : AppCompatActivity() {
     // 메뉴 데이터 리스트
     private lateinit var menuList: List<MenuResponse>
 
+    // 주문 내역(장바구니) 관련 변수
+    private lateinit var orderRecyclerView: RecyclerView
+    private lateinit var addCartAdapter: AddCart
+    private val cartItemList = ArrayList<AddCart.CartItem>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,31 +58,107 @@ class MenuMain : AppCompatActivity() {
 
         val orderTimerTextView = findViewById<TextView>(R.id.order_timer)
         timerHelper = TimerHelper(this, orderTimerTextView)
+
+        // 타이머 종료 시 처리할 콜백 설정
+        timerHelper.setOnTimerFinishListener(object : TimerHelper.OnTimerFinishListener {
+            override fun onTimerFinish() {
+                // 장바구니 초기화
+                cartItemList.clear()
+                addCartAdapter.notifyDataSetChanged()
+                updateTotalPrice()  // 총 금액 TextView가 "0 원"으로 업데이트됨
+            }
+        })
         timerHelper.startTimer()
 
         rightLayout = findViewById(R.id.rightLayout)
-        val btnLogo: ImageButton = findViewById(R.id.btn_logo)
-
         setupSideMenuListeners()
         setupCardMenuListeners()
         loadMenuData()
 
-        btnLogo.setOnClickListener {
-            val intent = Intent(this, MenuMain::class.java)
-            finish()
+        // 주문 내역(장바구니) RecyclerView 초기화
+        orderRecyclerView = findViewById(R.id.orderlist_recyclerView)
+        orderRecyclerView.layoutManager = LinearLayoutManager(this)
+        addCartAdapter = AddCart(this, cartItemList)
+        addCartAdapter.setOnCartItemChangeListener(object : AddCart.OnCartItemChangeListener {
+            override fun onCartItemChanged() {
+                updateTotalPrice()
+            }
+        })
+        orderRecyclerView.adapter = addCartAdapter
+
+        // "전체 삭제" 버튼 처리 (order_pay.xml에 포함된 버튼)
+        val clearCartButton = findViewById<Button>(R.id.button2)
+        clearCartButton.setOnClickListener {
+            val intent = Intent(this, MenuMain::class.java).apply {
+                putExtra("clearCart", true)
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            }
             startActivity(intent)
         }
+
+        processNewIntent(intent)
+        updateTotalPrice()
+    }
+
+
+    // 새로운 intent를 받으면 기존 주문 내역에 추가
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        processNewIntent(intent)
+        updateTotalPrice()
+    }
+
+    // 예를 들어 onActivityResult로 결과를 받아 처리하는 경우 (사용 시)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        // 결과 처리 후 updateTotalPrice() 호출
+        updateTotalPrice()
+    }
+
+    /**
+     * intent에 담긴 주문 데이터를 처리하여 장바구니에 추가하는 함수
+     */
+    private fun processNewIntent(intent: Intent) {
+        if (intent.getBooleanExtra("clearCart", false)) {
+            cartItemList.clear()
+            addCartAdapter.notifyDataSetChanged()
+            updateTotalPrice()
+            return
+        }
+        // 기존 주문 데이터 처리
+        val menuNameExtra = intent.getStringExtra("menuName")
+        val priceExtra = intent.getIntExtra("price", 0)
+        val subSetPrice = intent.getIntExtra("subSetPrice", 0)
+        val subLSetPrice = intent.getIntExtra("subLSetPrice", 0)
+
+        if (menuNameExtra != null) {
+            val newItem = if (priceExtra != 0) {
+                AddCart.CartItem(menuNameExtra, priceExtra, 0)
+            } else {
+                AddCart.CartItem(menuNameExtra, subSetPrice, subLSetPrice)
+            }
+            cartItemList.add(newItem)
+            addCartAdapter.notifyItemInserted(cartItemList.size - 1)
+        }
+    }
+
+    // 총 가격을 계산하여 txt_order_totalPrice2에 표시
+    private fun updateTotalPrice() {
+        val totalPrice = cartItemList.sumOf { item ->
+            val price = if (item.getSubSetPrice() != 0) item.getSubSetPrice() else item.getSubLSetPrice()
+            price * item.getQuantity()
+        }
+        val totalPriceTextView = findViewById<TextView>(R.id.txt_order_totalPrice2)
+        totalPriceTextView.text = "$totalPrice 원"
     }
 
     override fun onResume() {
         super.onResume()
-        // 타이머가 중지되어 있다면 재시작
         timerHelper.startTimer()
     }
 
     override fun onPause() {
         super.onPause()
-        // 액티비티가 백그라운드로 갈 때 타이머 중지
         timerHelper.stopTimer()
     }
 
@@ -125,8 +206,11 @@ class MenuMain : AppCompatActivity() {
         val newView = inflater.inflate(getLayoutIdByCategory(category), rightLayout, false)
         rightLayout.addView(newView)
 
-        if (category in listOf("tab_specialty", "burger", "side", "coffee", "dessert", "beverage",
-                "dessertbeverage", "happysnack")) {
+        if (category in listOf(
+                "tab_specialty", "burger", "side", "coffee", "dessert", "beverage",
+                "dessertbeverage", "happysnack"
+            )
+        ) {
             setupRecyclerView(newView, category)
         }
     }
@@ -141,7 +225,7 @@ class MenuMain : AppCompatActivity() {
             "specialty" -> R.layout.tab_specialty
             "dessertbeverage" -> R.layout.tab_dessertbeverage
             "happysnack" -> R.layout.tab_happysnack
-            else -> R.layout.tab_specialty // 기본값
+            else -> R.layout.tab_specialty
         }
     }
 
@@ -150,12 +234,7 @@ class MenuMain : AppCompatActivity() {
         val gridLayoutManager = GridLayoutManager(this, 3)
         recyclerView.layoutManager = gridLayoutManager
 
-        // RecyclerView에 Adapter 설정
         when (category) {
-            /*"specialty" -> {
-                tabSpecialtyAdapter = TabSpecialtyAdapter(getFilteredMenuList(13))
-                recyclerView.adapter = tabSpecialtyAdapter
-            }*/
             "burger" -> {
                 tabBurgerAdapter = TabBurgerAdapter(getFilteredMenuList(11))
                 recyclerView.adapter = tabBurgerAdapter
@@ -177,7 +256,7 @@ class MenuMain : AppCompatActivity() {
                 recyclerView.adapter = tabDessertAdapter
             }
             "dessertbeverage" -> {
-                tabDessertBeverageAdapter = TabDessertBeverageAdapter(getFilteredMenuList(14,15,17))
+                tabDessertBeverageAdapter = TabDessertBeverageAdapter(getFilteredMenuList(14, 15, 17))
                 recyclerView.adapter = tabDessertBeverageAdapter
             }
             "happysnack" -> {
@@ -193,7 +272,6 @@ class MenuMain : AppCompatActivity() {
 
     private fun loadMenuData() {
         val apiService = RetrofitClient.instance.create(ApiService::class.java)
-
         apiService.getMenus().enqueue(object : Callback<List<MenuResponse>> {
             override fun onResponse(call: Call<List<MenuResponse>>, response: Response<List<MenuResponse>>) {
                 if (response.isSuccessful) {

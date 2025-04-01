@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="bc3_burgerLayout" type="id" />
+    <item name="bc3_sideLayout" type="id" />
+    <item name="bc3_beverageLayout" type="id" />
+</resources>

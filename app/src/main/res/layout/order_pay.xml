@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/order_pay"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFBE8">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/topPanel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- 남은 시간 정보 -->
+
+            <!-- 전체 삭제 버튼 -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/order_remainTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="남은 시간"
+                    android:textColor="#DA291C"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/order_timer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="#DA291C"
+                    android:textSize="40sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/btn_yellow_r_sq"
+                android:text="전체\n삭제"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txt_order_totalPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="총 금액"
+                android:textSize="20sp"
+                android:textColor="#212121"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_order_totalPrice2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_weight="1"
+                android:text=""
+                android:textColor="#DA291C"
+                android:textSize="23sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_order_pay"
+            android:background="@drawable/btn_yellow_r_sq"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:text="결제하기"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+    <!-- 총 가격 표시 -->
+
+    <!-- 결제 버튼 (하단 우측) -->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
