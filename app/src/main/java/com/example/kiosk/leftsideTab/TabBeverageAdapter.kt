@@ -33,7 +33,7 @@ class TabBeverageAdapter(private val beveragemenuList: List<MenuResponse>) : Rec
     override fun onBindViewHolder(holder: MenuViewHolder, position: Int) {
         val menu = filteredMenuList[position]
         holder.nameTextView.text = menu.name
-        holder.priceTextView.text = "₩: ${menu.price}"
+        holder.priceTextView.text = "${menu.price}원"
 
         Glide.with(holder.imageView.context)
             .load(menu.img_url)
