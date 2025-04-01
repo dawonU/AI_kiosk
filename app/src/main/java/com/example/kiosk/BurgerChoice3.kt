@@ -18,7 +18,7 @@ class BurgerChoice3 : AppCompatActivity() {
         val menuName = intent.getStringExtra("menuName")
         val imgUrl = intent.getStringExtra("img_url")
 
-        // 기본 UI 요소 초기화 (BurgerChoice의 기본 이미지와 메뉴명)
+        // 기본 UI 요소 초기화
         findViewById<ImageView>(R.id.bc3_img_burgerSingle).also { imageView ->
             Glide.with(this).load(imgUrl).into(imageView)
         }
@@ -34,11 +34,12 @@ class BurgerChoice3 : AppCompatActivity() {
         val cokeM_name = intent.getStringExtra("cokeM_name")
         val cokeL_name = intent.getStringExtra("cokeL_name")
 
-        // UI 요소 초기화 (감자튀김, 콜라 관련)
-        findViewById<TextView>(R.id.bh3_priceTextView).text =
-            if (subSetPrice != 0) "총 가격: $subSetPrice 원"
-            else if (subLSetPrice != 0) "총 가격: $subLSetPrice 원"
-            else "가격 없음"
+        // UI 요소 초기화
+        val priceText = if (subSetPrice != 0) "총 가격: $subSetPrice 원"
+        else if (subLSetPrice != 0) "총 가격: $subLSetPrice 원"
+        else "가격 없음"
+
+        findViewById<TextView>(R.id.bh3_priceTextView).text = priceText
 
         findViewById<TextView>(R.id.txt_fries).text = friesName ?: ""
         findViewById<TextView>(R.id.txt_coke).text = cokeM_name ?: cokeL_name ?: ""
@@ -51,7 +52,13 @@ class BurgerChoice3 : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.addCart).setOnClickListener {
-            startActivity(Intent(this, MenuMain::class.java))
+            val intent = Intent(this, MenuMain::class.java)
+            intent.putExtra("menuName", menuName)
+            intent.putExtra("priceText", priceText)
+            intent.putExtra("subSetPrice", subSetPrice)
+            intent.putExtra("subLSetPrice", subLSetPrice)
+            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)  // 기존 인스턴스에 전달하도록 플래그 추가
+            startActivity(intent)
         }
 
         // 뒤로가기, 취소 버튼 클릭 이벤트

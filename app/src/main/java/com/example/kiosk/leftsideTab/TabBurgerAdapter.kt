@@ -67,4 +67,3 @@ class TabBurgerAdapter(private val burgermenuList: List<MenuResponse>) : Recycle
         return filteredMenuList.size
     }
 }
-

@@ -2,6 +2,7 @@
 
 package com.example.kiosk.leftsideTab
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,12 +10,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.kiosk.MenuMain
 import com.example.kiosk.R
 import com.example.kiosk.network.MenuResponse
 
-
-class TabDessertBeverageAdapter(
-    private val dessertNbeveragemenuList: List<MenuResponse>) : RecyclerView.Adapter<TabDessertBeverageAdapter.MenuViewHolder>() {
+class TabDessertBeverageAdapter(private val dessertNbeveragemenuList: List<MenuResponse>) : RecyclerView.Adapter<TabDessertBeverageAdapter.MenuViewHolder>() {
 
     class MenuViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView = itemView.findViewById(R.id.nameTextView)
@@ -22,7 +22,7 @@ class TabDessertBeverageAdapter(
         val imageView: ImageView = itemView.findViewById(R.id.menuImgView)
     }
 
-    // category_id가 14,17인 데이터만 필터링
+    // category_id가 14,15,17인 데이터만 필터링
     private val filteredMenuList: List<MenuResponse> = dessertNbeveragemenuList.filter {
         it.category_id == 14 || it.category_id == 15 || it.category_id == 17
     }
@@ -40,7 +40,19 @@ class TabDessertBeverageAdapter(
         Glide.with(holder.imageView.context)
             .load(menu.img_url)
             .into(holder.imageView)
-        //holder.itemView.setTag(menu)
+
+        // 클릭 시 MenuMain으로 인텐트 전달하여 장바구니에 추가
+        holder.itemView.setOnClickListener {
+            val context = holder.itemView.context
+            val intent = Intent(context, MenuMain::class.java).apply {
+                putExtra("menuName", menu.name)
+                putExtra("price", menu.price)
+                putExtra("subSetPrice", 0)
+                putExtra("subLSetPrice", 0)
+                addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            }
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {

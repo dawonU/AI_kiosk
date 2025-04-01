@@ -57,7 +57,7 @@ class BurgerChoice2 : AppCompatActivity() {
                     "https://www.mcdelivery.co.kr/kr//static/1738737640738/assets/82/products/1402.png"
                 )
                 putExtra("fries_name", "후렌치 후라이 (미디엄)")
-                putExtra(
+                    putExtra(
                     "coke_img_url",
                     "https://www.mcdelivery.co.kr/kr//static/1738737640738/assets/82/products/1506.png?"
                 )

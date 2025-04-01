@@ -24,7 +24,6 @@ public class BurgerChoice extends AppCompatActivity {
         String menuName = intent.getStringExtra("menuName");
         String sub_Set_cat_name = intent.getStringExtra("sub_Set_cat_name");
         String sub_LSet_cat_name = intent.getStringExtra("sub_LSet_cat_name");
-        int id = intent.getIntExtra("id", 0);
         int price = intent.getIntExtra("price", 0);
         String img_url = intent.getStringExtra("img_url");
         String img_url_burgerSet = intent.getStringExtra("img_url_burgerSet");
@@ -77,6 +76,7 @@ public class BurgerChoice extends AppCompatActivity {
                 nextIntent.putExtra("menuName", menuName);
                 nextIntent.putExtra("price", price);
                 nextIntent.putExtra("img_url", img_url);
+                nextIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(nextIntent);
             }
         });
