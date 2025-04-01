@@ -1,6 +1,6 @@
 package com.example.test
 
-import Model
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -14,16 +14,12 @@ import androidx.core.view.WindowInsetsCompat
 
 class Start : AppCompatActivity() {
     private lateinit var videoView: VideoView
-    private val MODEL_REQUEST_CODE = 1001
 
+    @SuppressLint("MissingSuperCall")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.startorder)
-
-        // 앱 실행 시 바로 Model.kt 실행
-        val intent = Intent(this, Model::class.java)
-        startActivityForResult(intent, MODEL_REQUEST_CODE)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -50,7 +46,6 @@ class Start : AppCompatActivity() {
         }
 
 
-
         // 언어 변경 버튼 설정
         findViewById<ImageButton>(R.id.imgBtn_Kr).setOnClickListener {
             findViewById<Button>(R.id.button_rounded1).text = "먹고가기"
@@ -72,13 +67,4 @@ class Start : AppCompatActivity() {
             findViewById<Button>(R.id.button_rounded2).text = "打包"
         }
     }
-
-    // Model.kt에서 연령대 결과를 받아서 UI 업데이트
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        if (requestCode == MODEL_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-//            val ageGroup = data?.getStringExtra("age_group") ?: "unknown"
-//            Toast.makeText(this, "분석 결과: $ageGroup", Toast.LENGTH_LONG).show()
-//        }
-//    }
 }
