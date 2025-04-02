@@ -28,18 +28,30 @@ class Intro : AppCompatActivity() {
 
         videoView = findViewById(R.id.intro_video)
 
+        // Intent로 전달된 age_group 값 읽기
+        val ageGroup = intent.getStringExtra("age_group")
+        // age_group에 따라 재생할 비디오 파일 결정
+        val videoResId = when (ageGroup) {
+            "kid" -> R.raw.intro_kid
+            "middle" -> R.raw.intro_middle
+            "senior" -> R.raw.intro_senior
+            else -> R.raw.wait  // 예외 상황에 대한 기본 비디오
+        }
+
         // 비디오 파일 경로 설정
-        val uri: Uri = Uri.parse("android.resource://" + packageName + "/" + R.raw.intro)
+        val uri: Uri = Uri.parse("android.resource://$packageName/$videoResId")
         videoView.setVideoURI(uri)
         videoView.start() // 비디오 시작
 
         findViewById<CardView>(R.id.card_here).setOnClickListener {
             val intent = Intent(this, MenuMain::class.java)
+            intent.putExtra("age_group", ageGroup)
             startActivity(intent)
         }
 
         findViewById<CardView>(R.id.card_takeout).setOnClickListener {
             val intent = Intent(this, MenuMain::class.java)
+            intent.putExtra("age_group", ageGroup)
             startActivity(intent)
         }
 

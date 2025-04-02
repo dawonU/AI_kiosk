@@ -59,7 +59,8 @@ class MenuMain : AppCompatActivity() {
         setContentView(R.layout.menu_main)
 
         val orderTimerTextView = findViewById<TextView>(R.id.order_timer)
-        timerHelper = TimerHelper(this, orderTimerTextView)
+        val ageGroup = intent.getStringExtra("age_group") ?: ""
+        timerHelper = TimerHelper(this, orderTimerTextView, ageGroup)
         timerHelper.setOnTimerFinishListener(object : TimerHelper.OnTimerFinishListener {
             override fun onTimerFinish() {// 타이머=0 일때
                 cartItemList.clear() // -> 장바구니 초기화

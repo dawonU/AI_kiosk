@@ -69,11 +69,17 @@ class MainActivity : AppCompatActivity() {
                 call: Call<PredictionResponse>,
                 response: Response<PredictionResponse>
             ) {
-                val result = response.body()?.age_group
-                Toast.makeText(applicationContext, "예상 연령대: $result", Toast.LENGTH_LONG).show()
+                val ageGroup = response.body()?.age_group ?: ""
+                Log.d("Intro", "전달받은 age_group: $ageGroup")
+                Toast.makeText(applicationContext, "예상 연령대: $ageGroup", Toast.LENGTH_LONG).show()
+                // age_group 값을 Intro 액티비티로 전달
+                val intent = Intent(this@MainActivity, Intro::class.java)
+                intent.putExtra("age_group", ageGroup)
+                startActivity(intent)
             }
+
             override fun onFailure(call: Call<PredictionResponse>, t: Throwable) {
-                Log.e("API", "전송 실패: ${t.message}")
+                TODO("Not yet implemented")
             }
         })
     }
