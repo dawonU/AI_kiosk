@@ -17,6 +17,7 @@ class BurgerChoice3 : AppCompatActivity() {
         // BurgerChoice 에서 전달된 기본 데이터
         val menuName = intent.getStringExtra("menuName")
         val imgUrl = intent.getStringExtra("img_url")
+        val ageGroup = intent.getStringExtra("age_group")
 
         // 기본 UI 요소 초기화
         findViewById<ImageView>(R.id.bc3_img_burgerSingle).also { imageView ->
@@ -52,19 +53,24 @@ class BurgerChoice3 : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.addCart).setOnClickListener {
-            val intent = Intent(this, MenuMain::class.java)
-            intent.putExtra("menuName", menuName)
-            intent.putExtra("priceText", priceText)
-            intent.putExtra("subSetPrice", subSetPrice)
-            intent.putExtra("subLSetPrice", subLSetPrice)
-            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)  // 기존 인스턴스에 전달하도록 플래그 추가
-            startActivity(intent)
+            Intent(this, MenuMain::class.java).apply {
+                putExtra("menuName", menuName)
+                putExtra("priceText", priceText)
+                putExtra("subSetPrice", subSetPrice)
+                putExtra("subLSetPrice", subLSetPrice)
+                putExtra("age_group", ageGroup)  // age_group 전달
+                addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                startActivity(this)
+            }
         }
 
         // 뒤로가기, 취소 버튼 클릭 이벤트
         findViewById<Button>(R.id.btn_bc3_back).setOnClickListener { finish() }
         findViewById<Button>(R.id.btn_bc3_cancle).setOnClickListener {
-            startActivity(Intent(this, MenuMain::class.java))
+            Intent(this, MenuMain::class.java).apply {
+                putExtra("age_group", ageGroup)  // age_group 전달
+                startActivity(this)
+            }
             finish()
         }
     }

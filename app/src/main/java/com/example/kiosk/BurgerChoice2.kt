@@ -22,6 +22,7 @@ class BurgerChoice2 : AppCompatActivity() {
         // 메뉴 이름 초기화 및 설정
         val menuName = intent.getStringExtra("menuName")
         findViewById<TextView>(R.id.bh2_nameTextView).text = menuName
+        val ageGroup = intent.getStringExtra("age_group")
 
         // 이미지 초기화
         val img_url = intent.getStringExtra("img_url")
@@ -62,6 +63,7 @@ class BurgerChoice2 : AppCompatActivity() {
                     "https://www.mcdelivery.co.kr/kr//static/1738737640738/assets/82/products/1506.png?"
                 )
                 putExtra("cokeM_name", "코카콜라 (미디엄)")
+                putExtra("age_group", ageGroup)
                 startActivity(this)
             }
         }
@@ -82,13 +84,16 @@ class BurgerChoice2 : AppCompatActivity() {
                     "https://www.mcdelivery.co.kr/kr//static/1738737640738/assets/82/products/1506.png?"
                 )
                 putExtra("cokeL_name", "코카콜라 (라지)")
+                putExtra("age_group", ageGroup)
                 startActivity(this)
             }
         }
 
         findViewById<Button>(R.id.btn_bc2_back).setOnClickListener { finish() }
         findViewById<Button>(R.id.btn_bc2_cancle).setOnClickListener {
-            startActivity(Intent(this, MenuMain::class.java))
+            startActivity(Intent(this, MenuMain::class.java).apply {
+                putExtra("age_group", ageGroup)
+            })
             finish()
         }
     }

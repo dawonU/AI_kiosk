@@ -1,14 +1,22 @@
 // java>network>ApiService
 package com.example.kiosk.network
 
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Multipart
+import retrofit2.http.POST
+import retrofit2.http.Part
 
 interface ApiService {
     @GET("menus")
     fun getMenus(): Call<List<MenuResponse>>
+
+    @Multipart
+    @POST("/api/classify")
+    fun uploadImage(@Part image: MultipartBody.Part): Call<PredictionResponse>
 
     // 추가된 메소드: 메뉴를 가져오고 sub_menus를 파싱하는 메소드
     fun fetchMenus(onResult: (List<SubMenuResponse>?) -> Unit) {
@@ -57,3 +65,4 @@ interface ApiService {
         return subMenus.filter { it.variationName == "라지세트" || it.variationName == "세트" }
     }
 }
+data class PredictionResponse(val age_group: String)

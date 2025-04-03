@@ -12,7 +12,9 @@ import com.example.kiosk.MenuMain
 import com.example.kiosk.R
 import com.example.kiosk.network.MenuResponse
 
-class TabCoffeeAdapter(private val coffeemenuList: List<MenuResponse>) : RecyclerView.Adapter<TabCoffeeAdapter.MenuViewHolder>() {
+class TabCoffeeAdapter(
+    private val coffeemenuList: List<MenuResponse>,
+    private val ageGroup: String) : RecyclerView.Adapter<TabCoffeeAdapter.MenuViewHolder>() {
 
     class MenuViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView = itemView.findViewById(R.id.nameTextView)
@@ -32,6 +34,15 @@ class TabCoffeeAdapter(private val coffeemenuList: List<MenuResponse>) : Recycle
         val menu = filteredMenuList[position]
         holder.nameTextView.text = menu.name
         holder.priceTextView.text = "${menu.price}원"
+
+        // ageGroup 이 "senior"인 경우 텍스트 크기를 16sp, 아니면 기본 13sp로 설정
+        if (ageGroup == "senior") {
+            holder.nameTextView.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 20f)
+            holder.priceTextView.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 24f)
+        } else {
+            holder.nameTextView.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 13f)
+            holder.priceTextView.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 13f)
+        }
 
         Glide.with(holder.imageView.context)
             .load(menu.img_url)

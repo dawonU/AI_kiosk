@@ -22,6 +22,7 @@ public class BurgerChoice extends AppCompatActivity {
         // TabBurgerAdapter에서 전달한 데이터만 받아오기
         Intent intent = getIntent();
         String menuName = intent.getStringExtra("menuName");
+        String ageGroup = intent.getStringExtra("age_group");
         String sub_Set_cat_name = intent.getStringExtra("sub_Set_cat_name");
         String sub_LSet_cat_name = intent.getStringExtra("sub_LSet_cat_name");
         int price = intent.getIntExtra("price", 0);
@@ -64,6 +65,7 @@ public class BurgerChoice extends AppCompatActivity {
                 nextIntent.putExtra("img_url_burgerSet", img_url_burgerSet);
                 nextIntent.putExtra("sub_Set_price", subSetPrice);
                 nextIntent.putExtra("sub_LSet_price", subLSetPrice);
+                nextIntent.putExtra("age_group", ageGroup);
                 startActivity(nextIntent);
             }
         });
@@ -76,6 +78,7 @@ public class BurgerChoice extends AppCompatActivity {
                 nextIntent.putExtra("menuName", menuName);
                 nextIntent.putExtra("price", price);
                 nextIntent.putExtra("img_url", img_url);
+                nextIntent.putExtra("age_group", ageGroup);
                 nextIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(nextIntent);
             }

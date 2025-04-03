@@ -32,6 +32,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MenuMain : AppCompatActivity() {
+    private var ageGroup: String = ""
     private lateinit var timerHelper: TimerHelper
 
     private lateinit var rightLayout: LinearLayout
@@ -58,8 +59,10 @@ class MenuMain : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.menu_main)
 
+        ageGroup = intent.getStringExtra("age_group") ?: ""
+
         val orderTimerTextView = findViewById<TextView>(R.id.order_timer)
-        timerHelper = TimerHelper(this, orderTimerTextView)
+        timerHelper = TimerHelper(this, orderTimerTextView, ageGroup)
         timerHelper.setOnTimerFinishListener(object : TimerHelper.OnTimerFinishListener {
             override fun onTimerFinish() {// 타이머=0 일때
                 cartItemList.clear() // -> 장바구니 초기화
@@ -166,9 +169,6 @@ class MenuMain : AppCompatActivity() {
         updateTotalPrice()
     }
 
-    /**
-     * intent에 담긴 주문 데이터를 처리하여 장바구니에 추가하는 함수
-     */
     private fun processNewIntent(intent: Intent) {
         if (intent.getBooleanExtra("clearCart", false)) {
             cartItemList.clear()
@@ -282,36 +282,37 @@ class MenuMain : AppCompatActivity() {
 
     private fun setupRecyclerView(view: View, category: String) {
         recyclerView = view.findViewById(R.id.recyclerView)
-        val gridLayoutManager = GridLayoutManager(this, 3)
+        val spanCount = if (ageGroup == "senior") 2 else 3
+        val gridLayoutManager = GridLayoutManager(this, spanCount)
         recyclerView.layoutManager = gridLayoutManager
 
         when (category) {
             "burger" -> {
-                tabBurgerAdapter = TabBurgerAdapter(getFilteredMenuList(11))
+                tabBurgerAdapter = TabBurgerAdapter(getFilteredMenuList(11), ageGroup)
                 recyclerView.adapter = tabBurgerAdapter
             }
             "beverage" -> {
-                tabBeverageAdapter = TabBeverageAdapter(getFilteredMenuList(14, 17))
+                tabBeverageAdapter = TabBeverageAdapter(getFilteredMenuList(14, 17), ageGroup)
                 recyclerView.adapter = tabBeverageAdapter
             }
             "coffee" -> {
-                tabCoffeeAdapter = TabCoffeeAdapter(getFilteredMenuList(17))
+                tabCoffeeAdapter = TabCoffeeAdapter(getFilteredMenuList(17), ageGroup)
                 recyclerView.adapter = tabCoffeeAdapter
             }
             "side" -> {
-                tabSideAdapter = TabSideAdapter(getFilteredMenuList(13))
+                tabSideAdapter = TabSideAdapter(getFilteredMenuList(13), ageGroup)
                 recyclerView.adapter = tabSideAdapter
             }
             "dessert" -> {
-                tabDessertAdapter = TabDessertAdapter(getFilteredMenuList(15))
+                tabDessertAdapter = TabDessertAdapter(getFilteredMenuList(15), ageGroup)
                 recyclerView.adapter = tabDessertAdapter
             }
             "dessertbeverage" -> {
-                tabDessertBeverageAdapter = TabDessertBeverageAdapter(getFilteredMenuList(14, 15, 17))
+                tabDessertBeverageAdapter = TabDessertBeverageAdapter(getFilteredMenuList(14, 15, 17), ageGroup)
                 recyclerView.adapter = tabDessertBeverageAdapter
             }
             "happysnack" -> {
-                tabHappySnackAdapter = TabHappySnackAdapter(getFilteredMenuList(18))
+                tabHappySnackAdapter = TabHappySnackAdapter(getFilteredMenuList(18), ageGroup)
                 recyclerView.adapter = tabHappySnackAdapter
             }
         }
