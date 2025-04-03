@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
 
         // Retrofit 인스턴스 생성 (ngrok 주소 사용 예시)
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://9dcc-220-76-202-228.ngrok-free.app/")
+            .baseUrl("https://5cd3-220-76-202-228.ngrok-free.app/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
